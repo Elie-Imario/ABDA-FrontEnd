@@ -1,0 +1,32 @@
+@mixin flex($type: flex, $direction:row, $align:flex-start, $justify, $flexwrap:nowrap, $gap:0){
+    display: -ms-flexbox;
+    display: $type !important;
+    flex-direction: $direction;
+    -ms-flex-direction: $direction;
+    -ms-flex-wrap: $flexwrap;
+    flex-wrap: $flexwrap;
+    -ms-flex-align: $align;
+    align-items: $align;
+    justify-content: $justify;
+    gap: $gap;
+}
+
+@mixin bar-animation($type){
+    -webkit-animation: $type 500ms linear 0s;
+    -moz-animation: $type 500ms linear 0s;
+    animation: $type 500ms 0s;
+    -webkit-animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+}
+
+@mixin plusJakartaSansType($weight){
+    font-family: 'Plus Jakarta Sans' !important;
+    font-weight: $weight !important;
+}
+
+
+@mixin poppinsType($weight){
+    font-family: 'Poppins' !important;
+    font-weight: $weight !important;
+}

@@ -1,0 +1,176 @@
+@import "./import";
+.no-shadow {
+  box-shadow: none !important;
+}
+
+table {
+  caption-side: bottom !important;
+  border-collapse: collapse !important;
+  margin-top: 1rem !important;
+  thead th {
+    @include plusJakartaSansType($weight: 600);
+    font-weight: 500 !important;
+    font-size: 12px !important;
+    color: $green !important;
+    text-transform: uppercase !important;
+    text-align: inherit !important;
+    text-align: center !important;
+    padding: 1rem !important;
+  }
+
+  tr {
+    vertical-align: middle !important;
+
+    &.text-center td {
+      text-align: center !important;
+    }
+
+    &.text-background td {
+      color: $gray-600 !important;
+      @include plusJakartaSansType($weight: 400);
+      font-size: 16px;
+    }
+  }
+  td {
+    @include plusJakartaSansType($weight: 500);
+    font-size: 12px !important;
+    line-height: 20px !important;
+    letter-spacing: 0.2px !important;
+    color: $gray-700 !important;
+    padding: 0.75rem !important;
+
+    &.bg-dark {
+      background: rgba($color: $gray-700, $alpha: 0.1);
+    }
+
+    span {
+      margin-right: 5px !important;
+      &.text-bold {
+        font-weight: 600 !important;
+      }
+      &.text-uppercase {
+        text-transform: uppercase !important;
+      }
+      &.text-capitalize {
+        text-transform: capitalize !important;
+      }
+    }
+    .loading {
+      padding: 0.5rem !important;
+      width: 100%;
+      @include flex($align: center, $justify: center);
+    }
+  }
+}
+
+thead,
+tbody,
+tfoot,
+tr,
+td,
+th {
+  border-color: inherit !important;
+}
+thead {
+  border-bottom: 0.15rem solid $gray-200 !important;
+}
+td,
+tfoot {
+  border-color: transparent !important;
+}
+.table > :not(caption) > * > * {
+  padding: 0.75rem 1.25rem !important;
+  border-bottom-width: 1px !important;
+}
+.table {
+  > tbody {
+    vertical-align: inherit !important;
+  }
+  > thead {
+    vertical-align: bottom !important;
+  }
+
+  > :not(:first-child) {
+    border-top: 1px solid $gray-400 !important;
+  }
+}
+
+.table-responsive {
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+
+@media (max-width: 575.98px) {
+  .table-responsive-sm {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+}
+@media (max-width: 767.98px) {
+  .table-responsive-md {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+}
+@media (max-width: 991.98px) {
+  .table-responsive-lg {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+}
+@media (max-width: 1199.98px) {
+  .table-responsive-xl {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+}
+@media (max-width: 1399.98px) {
+  .table-responsive-xxl {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+}
+
+.tab-content > .tab-pane {
+  display: none !important;
+}
+.tab-content > .active {
+  display: block !important;
+}
+
+.table-border-bottom-0 tr:last-child td,
+.table-border-bottom-0 tr:last-child th {
+  border-bottom-width: 0 !important;
+}
+
+.table.table-flush-spacing thead tr > td:first-child,
+.table.table-flush-spacing tbody tr > td:first-child {
+  padding-left: 0 !important;
+}
+.table.table-flush-spacing thead tr > td:last-child,
+.table.table-flush-spacing tbody tr > td:last-child {
+  padding-right: 0 !important;
+}
+
+.table > tbody > tr:nth-of-type(odd) {
+  background-color: $gray-100 !important;
+}
+
+.btn_group {
+  @include flex($align: center, $justify: center, $gap: 15px);
+  .btn-action {
+    border: none !important;
+    background-color: transparent !important;
+    outline: none !important;
+    cursor: pointer !important;
+    color: $gray-800 !important;
+    text-decoration: none !important;
+    svg {
+      @include flex($align: center, $justify: center);
+      font-size: 15px !important;
+      padding: 0.5rem !important;
+      border-radius: 0.45rem !important;
+      background: rgba($color: $gray-600, $alpha: 0.15) !important;
+    }
+  }
+}
