@@ -1,0 +1,36 @@
+@import '../assets/dist/sass/import';
+
+.title-lead{
+    @include plusJakartaSansType($weight: 600);
+    border-left: 5px solid $primary;
+    padding: 0.75rem;
+    color: $gray-800;
+    
+    span {
+        text-transform: uppercase;
+    }
+}
+
+.list-section, .content-body{
+    margin: 15px 0;
+    height: calc(85vh - 15px);
+    overflow-y: auto;
+    .sub-title{
+        font-size: 16px;
+        @include plusJakartaSansType($weight: 200);
+        text-transform: capitalize;
+        color: $gray-700;
+    }
+
+}
+
+
+.content-body{
+    &.no-scroll{
+        overflow: hidden!important;
+    }
+    .sub-title{
+        margin: 15px 0;
+    }
+}
+

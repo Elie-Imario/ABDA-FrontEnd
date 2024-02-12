@@ -1,0 +1,181 @@
+@import '../assets/dist/sass/import';
+.LayoutContainer{
+    overflow: hidden;
+    .title-lead{
+        @include plusJakartaSansType($weight: 600);
+        border-left: 5px solid $primary;
+        padding: 0.75rem;
+        color: $gray-800;
+        
+        span {
+            text-transform: uppercase;
+        }
+    }
+
+    .list-section, .content-body{
+        margin: 15px 0;
+        height: calc(85vh - 15px);
+        overflow-y: auto;
+        .sub-title{
+            font-size: 16px;
+            font-family: $PlusJakartaSansLight;
+            color: $gray-700;
+        }
+
+    }
+    .list-section{
+        .btn-action{
+            position: fixed;
+            bottom: 45px;
+            right: 54px;
+            z-index: 999;
+            @include flex($align: center, $justify:center, $gap: 15px);
+            display: block;
+
+            &.hide{
+                display: none;
+            }
+
+            .btn-add{
+                border: none;
+                background-color: transparent;
+                outline: none;
+                color: white;
+                cursor: pointer;
+                i{
+                    @include flex($align: center, $justify:center);
+                    width: 20px;
+                    height: 20px;
+                    font-size: 20px;
+                    padding: 1.5rem;
+                    border-radius: 50%;
+                    background: rgba($color: $green, $alpha: .9);
+                }
+            }
+
+        }
+        .list-items{
+            margin: 18px 0;
+            .list{
+                margin-bottom: 15px;
+            }
+        }
+        .list-items .list{
+            width: 100%;
+            height: 100%;
+            @include flex($align: center, $justify:space-between);
+            background: $white;
+            border-radius: .5rem;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px -2px $gray-500;
+        }
+
+
+
+        .list{
+            cursor: pointer;
+            opacity: 1;
+            transition: opacity .5s ease;
+            &.close{
+                opacity: .75;
+            }
+            &:hover{
+                opacity: 1;
+            }
+        }
+
+        .list .l-datetime{
+            span{    
+                font-size: 18px;
+                font-family: $PoppinsRegular;
+                color: $gray-700;
+            }
+        }
+
+        .list .s-detail{
+            text-align: start;
+            .s-info span{
+                font-size: 18px;
+                font-family: $PlusJakartaSansSemiBold;
+                color: $gray-800;
+            }
+
+            .s-sub-info{
+                margin-top: 10px;
+                color: $gray-600;
+                span{
+                    font-size: 15px;
+                    font-family: $PoppinsRegular;
+                }
+            }
+        }
+
+        .list .s-more-detail{
+            @include flex($align: center, $justify:space-between, $gap: 35px);
+        }
+
+        .list .ico{
+            i{
+                @include flex($align: center, $justify:center);
+                width: 35px;
+                height: 35px;
+                font-size: 21px;
+                padding: 1rem;
+                border-radius: 50%;
+                color: $primary;
+                background: rgba($color: $gray-500, $alpha: .15);
+            }  
+        }
+    }
+
+    .content-body{
+        &.no-scroll{
+            overflow: hidden!important;
+        }
+        .sub-title{
+            margin: 15px 0;
+        }
+
+        .user-info{
+            @include flex($align: flex-start, $justify:flex-start, $gap: 15px);
+        }
+
+        .user-info .user-pic{
+            width: 169px;
+            height: 144px;
+            border-radius: .5rem;
+            img{
+                object-fit: cover;
+                width: 100%;
+                height: 100%;
+                border-radius: .5rem;
+            }
+        }
+    }
+
+    .content-body .content-body-header{
+        .card-items{
+            @include flex($align: center, $justify:center, $gap: 25px);
+        }
+    }
+    .intro{
+        text-align: center;
+        width: 90%;
+        margin: 25px auto;
+        span{
+            color: $gray-500;
+            font-size: 14px;
+            font-family: $PlusJakartaSansLight;
+            line-height: 1.5;
+        }
+    }
+
+    .content-body .content-body-body{
+        overflow-y: auto;
+        height: 55vh;
+        .list-items .list{
+            margin-bottom: 15px;
+        }
+
+    }
+}

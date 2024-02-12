@@ -1,0 +1,90 @@
+@import '../../../../assets/dist/sass/import';
+.wrap-modal-form{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    padding: 44px 35px;
+    background: $white;
+    border: 1px solid rgba($color: $gray-800, $alpha:.5);
+    border-radius: 5px;
+    width: 400px;
+}
+
+
+.wrap-modal-form .modal-header{
+    display: block!important;
+    .modal-header-title {
+        display: block;
+        font-weight: 500;
+        color: $gray-800;
+        font-size: 18px;
+        line-height: 1.2;
+        text-align: center;
+        text-transform: uppercase;
+        @include plusJakartaSansType($weight: 600);
+    }
+
+    .closepopup{
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        border: none;
+        background: transparent;
+        color: $gray-700;
+        cursor: pointer;
+        svg{
+            @include flex($align: center, $justify:center);
+            width: 15px;
+            height: 15px;
+            font-size: 16px;
+            padding: .25rem;
+            color: $white;
+            border-radius: 50%;
+            background: rgba($color: $gray-600, $alpha: .5);
+        }
+    }
+    
+    
+}
+
+.wrap-modal-form .create-session-form {    
+    margin-top: 45px;
+    width: 100%;
+    @include flex($direction:column,$align:flex-end, $justify:flex-start, $flexwrap:nowrap, $gap: 35px);
+    .wrap-select100{
+        width: 100%;
+        display: block;
+        .select100{
+            width: 100%;
+            font-size: 14px;
+            @include plusJakartaSansType($weight: 400);
+        }
+
+        .css-1jy569b-MuiFormLabel-root-MuiInputLabel-root.Mui-focused{
+            color: $primary;
+        }
+        .css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root.Mui-focused .MuiOutlinedInput-notchedOutline{
+            border: .15rem solid $primary;
+        }
+
+    }
+    .button_group{
+        float: right;
+        .btn-add{
+            color: $white;
+            background: $primary;
+            width: 125px;
+            padding: 0.75rem;
+            border-radius: 5px;
+            @include plusJakartaSansType($weight: 500);
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+            svg{
+                margin-right: 5px;
+            }
+        }
+    }
+}

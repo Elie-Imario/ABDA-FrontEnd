@@ -1,0 +1,28 @@
+@import '../../../assets/dist/sass/import';
+.box{
+    width: 81px;
+    height: 81px;
+    @include flex($align: center, $justify:center);
+    border-radius: .75rem;
+    border: none;
+    cursor: pointer;
+    opacity: 0.7;
+    transform: scale(0.9);
+    transition: opacity .5s ease, transform .5s ease-in-out;
+
+    svg{
+        color: $white;
+    }
+
+    &:hover{
+        opacity: 1;
+    }
+}
+
+.caption{
+    text-align: center;
+    font-size: 12px;
+    @include plusJakartaSansType($weight: 500);
+    line-height: 1.5;
+    color: $gray-500;
+}
