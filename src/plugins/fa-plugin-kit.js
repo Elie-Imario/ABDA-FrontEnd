@@ -1,7 +1,8 @@
 import { library } from '@fortawesome/fontawesome-svg-core'
 
 import { 
-    faListCheck, faCheck,
+    faListCheck, 
+    faCheck,
     faCog,
     faDoorOpen,
     faCheckCircle,
@@ -16,12 +17,14 @@ import {
     faClock,
     faRocket,
     faEdit,
-    faPen
+    faPen,
+    faTrashArrowUp,
+    faTrashCan
 } from '@fortawesome/free-solid-svg-icons'
 
 
 library.add(
     faListCheck, faCog, faDoorOpen, faCheckCircle, faPlus, faTimes, faHourglassStart,
     faSignIn, faEye, faEyeSlash, faKey, faUserCircle, faClock, faRocket, faEdit, faPen,
-    faCheck
+    faCheck, faTrashArrowUp,faTrashCan
 )

@@ -1,28 +1,29 @@
-@import '../../assets/dist/sass/import';
+@import "../../assets/dist/sass/import";
+@import "../../assets/dist/sass/tabStyle";
 
-.content-body .content-body-header{
-    margin-top: 15px;
-    .box-items{
-        @include flex($align: center, $justify:space-between, $gap: 4%);
-    }
+.content-body .content-body-header {
+  margin-top: 15px;
+  .box-items {
+    @include flex($align: center, $justify: space-between, $gap: 4%);
+  }
 }
 
-.content-body .intro{
-    text-align: center;
-    width: 95%;
-    margin: 25px auto;
-    span{
-        color: $gray-500;
-        font-size: 12px;
-        @include plusJakartaSansType($weight: 400);
-        line-height: 1.5;
-    }
+.content-body .intro {
+  text-align: center;
+  width: 95%;
+  margin: 25px auto;
+  span {
+    color: $gray-500;
+    font-size: 12px;
+    @include plusJakartaSansType($weight: 400);
+    line-height: 1.5;
+  }
 }
 
-.content-body .content-body-body{
-    overflow-y: auto;
-    height: 55vh;
-    .list-items .list{
-        margin-bottom: 15px;
-    }
+.content-body .content-body-body {
+  overflow-y: auto;
+  height: 55vh;
+  .list-items {
+    box-shadow: 0 4px 8px -2px $gray-400;
+  }
 }
