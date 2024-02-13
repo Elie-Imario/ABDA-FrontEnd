@@ -14,6 +14,7 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
+import { Bars } from "react-loader-spinner";
 import "./audit_styles.scss";
 
 const Audit = () => {
@@ -29,7 +30,11 @@ const Audit = () => {
   const [Audits, setAudit] = useState<AuditActivity[]>([] as AuditActivity[]);
   useEffect(() => {
     setActivity(activitiesDb);
+    setLoading(true);
     setAudit(audits);
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
   }, []);
 
   const handleChangePage = (
@@ -94,15 +99,15 @@ const Audit = () => {
                 <TableBody>
                   {loading ? (
                     <TableRow>
-                      <TableCell component="td" colSpan={5} className="bg-dark">
-                        {/* <Bars
+                      <TableCell component="td" colSpan={8} className="bg-dark">
+                        <Bars
                           height="25"
                           width="25"
                           color="#adb5bd"
                           ariaLabel="bars-loading"
                           wrapperClass="loading"
                           visible={true}
-                        /> */}
+                        />
                       </TableCell>
                     </TableRow>
                   ) : Audits.length > 0 ? (
@@ -122,7 +127,7 @@ const Audit = () => {
                         </TableCell>
                         <TableCell component="td">{item.utilisateur}</TableCell>
                         <TableCell component="td">
-                          {item.editedAt.getTime().toString()}
+                          {item.editedAt.toLocaleDateString()}
                         </TableCell>
                         <TableCell component="td">{item.matricule}</TableCell>
                         <TableCell component="td">{item.nom}</TableCell>
@@ -140,40 +145,42 @@ const Audit = () => {
                     ))
                   ) : (
                     <TableRow className="text-center text-background">
-                      <TableCell component="td" colSpan={5}>
+                      <TableCell component="td" colSpan={8}>
                         Aucune information disponible
                       </TableCell>
                     </TableRow>
                   )}
                 </TableBody>
-                <TableFooter>
-                  <TableRow>
-                    <TablePagination
-                      rowsPerPageOptions={[
-                        5,
-                        10,
-                        25,
-                        { label: "Tout", value: -1 },
-                      ]}
-                      colSpan={8}
-                      count={audits.length}
-                      rowsPerPage={rowsPerPage}
-                      page={page}
-                      labelRowsPerPage="Lignes par page"
-                      SelectProps={{
-                        inputProps: {
-                          "aria-label": "Lignes par page",
-                        },
-                        native: true,
-                      }}
-                      labelDisplayedRows={({ from, to, count }) =>
-                        `${from}-${to} sur ${count}`
-                      }
-                      onPageChange={handleChangePage}
-                      onRowsPerPageChange={handleChangeRowsPerPage}
-                    />
-                  </TableRow>
-                </TableFooter>
+                {!loading && (
+                  <TableFooter>
+                    <TableRow>
+                      <TablePagination
+                        rowsPerPageOptions={[
+                          5,
+                          10,
+                          25,
+                          { label: "Tout", value: -1 },
+                        ]}
+                        colSpan={8}
+                        count={audits.length}
+                        rowsPerPage={rowsPerPage}
+                        page={page}
+                        labelRowsPerPage="Lignes par page"
+                        SelectProps={{
+                          inputProps: {
+                            "aria-label": "Lignes par page",
+                          },
+                          native: true,
+                        }}
+                        labelDisplayedRows={({ from, to, count }) =>
+                          `${from}-${to} sur ${count}`
+                        }
+                        onPageChange={handleChangePage}
+                        onRowsPerPageChange={handleChangeRowsPerPage}
+                      />
+                    </TableRow>
+                  </TableFooter>
+                )}
               </Table>
             </TableContainer>
           </div>
