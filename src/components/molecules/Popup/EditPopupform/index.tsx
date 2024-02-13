@@ -7,12 +7,12 @@ import "./Popup.scss";
 
 type Props = {
   _open: boolean;
-  id: number;
+  _id: number | undefined;
   // eslint-disable-next-line @typescript-eslint/ban-types
   _setOpen: Function;
 };
 
-const EditPopup: FC<Props> = ({ _open, _setOpen, id }) => {
+const EditPopup: FC<Props> = ({ _open, _setOpen, _id }) => {
   const [errorMsg, setErrorMsg] = useState<string>("");
   const handleClose = () => {
     _setOpen(false);

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import Popup from "../../components/molecules/Popup/AddPopupform";
+import AddPopup from "../../components/molecules/Popup/AddPopupform";
+import EditPopup from "../../components/molecules/Popup/EditPopupform";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 //Material Ui Table
@@ -15,9 +16,9 @@ import Paper from "@mui/material/Paper";
 
 import { Bars } from "react-loader-spinner";
 
-import "./inscription_styles.scss";
 import { Etudiant } from "../../service/types/dataTypes";
 import { etudiants } from "../../service/data/mockup.data";
+import "./inscription_styles.scss";
 
 const Inscription = () => {
   //MUI table state configuration
@@ -25,13 +26,14 @@ const Inscription = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
+  const [defaultModal, setDefaultModal] = useState(false);
   const [open, setOpen] = useState(false);
+  const [registration_toEdit, setRegistrationId] = useState<number | undefined>(
+    0
+  );
   const [Registrations, setRegistrations] = useState<Etudiant[]>(
     [] as Etudiant[]
   );
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
 
   useEffect(() => {
     setLoading(true);
@@ -55,10 +57,29 @@ const Inscription = () => {
     setPage(0);
   };
 
+  const handleClickOpen = () => {
+    setDefaultModal(false);
+    setOpen(true);
+  };
+
+  const OpenEditModal = (id: number) => {
+    setRegistrationId(id);
+    setDefaultModal(true);
+    setOpen(true);
+  };
+
   return (
     <>
       <div className="modal-limiter">
-        <Popup _open={open} _setOpen={setOpen}></Popup>
+        {!defaultModal ? (
+          <AddPopup _open={open} _setOpen={setOpen}></AddPopup>
+        ) : (
+          <EditPopup
+            _open={open}
+            _setOpen={setOpen}
+            _id={registration_toEdit}
+          ></EditPopup>
+        )}
       </div>
       <div className="bloc-limiter">
         <div className="title-lead">
@@ -119,7 +140,7 @@ const Inscription = () => {
                             <button
                               className="btn-action"
                               onClick={() => {
-                                console.log("hello world");
+                                OpenEditModal(item.inscriptionId);
                               }}
                             >
                               <FontAwesomeIcon icon="edit" size="lg" />
