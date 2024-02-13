@@ -6,7 +6,7 @@ import Inscription from "./Inscription";
 const Pages = () => {
   return (
     <React.Suspense>
-      {/* <Audit/> */}
+      {/* <Audit /> */}
       <Inscription />
     </React.Suspense>
   );

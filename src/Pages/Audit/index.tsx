@@ -76,7 +76,7 @@ const Audit = () => {
           </span>
         </div>
         <div className="content-body-body">
-          <div className="list-items">
+          <div className="tab-section">
             <TableContainer component={Paper} className="no-shadow">
               <Table
                 sx={{ minWidth: 500 }}
@@ -151,36 +151,34 @@ const Audit = () => {
                     </TableRow>
                   )}
                 </TableBody>
-                {!loading && (
-                  <TableFooter>
-                    <TableRow>
-                      <TablePagination
-                        rowsPerPageOptions={[
-                          5,
-                          10,
-                          25,
-                          { label: "Tout", value: -1 },
-                        ]}
-                        colSpan={8}
-                        count={audits.length}
-                        rowsPerPage={rowsPerPage}
-                        page={page}
-                        labelRowsPerPage="Lignes par page"
-                        SelectProps={{
-                          inputProps: {
-                            "aria-label": "Lignes par page",
-                          },
-                          native: true,
-                        }}
-                        labelDisplayedRows={({ from, to, count }) =>
-                          `${from}-${to} sur ${count}`
-                        }
-                        onPageChange={handleChangePage}
-                        onRowsPerPageChange={handleChangeRowsPerPage}
-                      />
-                    </TableRow>
-                  </TableFooter>
-                )}
+                <TableFooter>
+                  <TableRow>
+                    <TablePagination
+                      rowsPerPageOptions={[
+                        5,
+                        10,
+                        25,
+                        { label: "Tout", value: -1 },
+                      ]}
+                      colSpan={8}
+                      count={audits.length}
+                      rowsPerPage={rowsPerPage}
+                      page={page}
+                      labelRowsPerPage="Lignes par page"
+                      SelectProps={{
+                        inputProps: {
+                          "aria-label": "Lignes par page",
+                        },
+                        native: true,
+                      }}
+                      labelDisplayedRows={({ from, to, count }) =>
+                        `${from}-${to} sur ${count}`
+                      }
+                      onPageChange={handleChangePage}
+                      onRowsPerPageChange={handleChangeRowsPerPage}
+                    />
+                  </TableRow>
+                </TableFooter>
               </Table>
             </TableContainer>
           </div>

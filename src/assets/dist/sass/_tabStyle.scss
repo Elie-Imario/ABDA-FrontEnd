@@ -156,7 +156,7 @@ tfoot {
   background-color: $gray-100 !important;
 }
 
-.btn_group {
+.btn_action_group {
   @include flex($align: center, $justify: center, $gap: 15px);
   .btn-action {
     border: none !important;
@@ -165,11 +165,16 @@ tfoot {
     cursor: pointer !important;
     color: $gray-800 !important;
     text-decoration: none !important;
+    &:hover svg {
+      background-color: rgba($color: $gray-400, $alpha: 1) !important;
+      color: $gray-900;
+    }
     svg {
       @include flex($align: center, $justify: center);
-      font-size: 15px !important;
+      font-size: 12px !important;
       padding: 0.5rem !important;
       border-radius: 0.45rem !important;
+      color: $gray-700;
       background: rgba($color: $gray-600, $alpha: 0.15) !important;
     }
   }
