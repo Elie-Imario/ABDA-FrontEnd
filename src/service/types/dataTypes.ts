@@ -29,6 +29,6 @@ export type User = {
 };
 
 export type UserLogin = {
-  username: string;
+  userName: string;
   password: string;
 };

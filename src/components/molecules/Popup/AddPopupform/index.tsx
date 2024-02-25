@@ -3,8 +3,13 @@ import Box from "@mui/material/Box";
 import { Modal, FormControl } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import TextField from "@mui/material/TextField";
-import "./Popup.scss";
+import "../Popup.scss";
 
+type Registration = {
+  nom: string;
+  matricule: string;
+  droit: number;
+};
 type Props = {
   _open: boolean;
   // eslint-disable-next-line @typescript-eslint/ban-types
@@ -12,19 +17,33 @@ type Props = {
 };
 
 const AddPopup: FC<Props> = ({ _open, _setOpen }) => {
+  const [Registration, setRegistration] = useState<Registration>({
+    nom: "",
+    matricule: "",
+    droit: 0,
+  });
+
   const [errorMsg, setErrorMsg] = useState<string>("");
+
   const handleClose = () => {
     _setOpen(false);
+    setRegistration({ nom: "", matricule: "", droit: 0 });
   };
 
   const onHandleChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    if (event.target.value.length <= 3) {
-      event.target.value.replace(/\D/g, "") as unknown;
+    if (event.target.value.length <= 6) {
+      const targetValue = event.target.value.replace(/\D/g, "");
+      const value = targetValue ? Number.parseInt(targetValue) : 0;
+      setRegistration({ ...Registration, droit: value });
     } else {
       event.target.value.replace(/\d/g, "");
     }
+  };
+
+  const sumbitForm = () => {
+    console.log(Registration);
   };
 
   return (
@@ -65,7 +84,7 @@ const AddPopup: FC<Props> = ({ _open, _setOpen }) => {
                 name="nom"
                 className="input100"
                 onChange={({ target: { value } }) => {
-                  console.log(value);
+                  setRegistration({ ...Registration, nom: value });
                 }}
               />
             </FormControl>
@@ -89,7 +108,7 @@ const AddPopup: FC<Props> = ({ _open, _setOpen }) => {
                 name="matricule"
                 className="input100"
                 onChange={({ target: { value } }) => {
-                  console.log(value);
+                  setRegistration({ ...Registration, matricule: value });
                 }}
               />
             </FormControl>
@@ -112,12 +131,23 @@ const AddPopup: FC<Props> = ({ _open, _setOpen }) => {
                 name="sallecapacity"
                 id="input"
                 className="input100"
-                value={0}
+                value={Registration.droit}
                 onChange={onHandleChange}
               />
             </FormControl>
             <div className="button_group">
-              <button className="btn-add" type="button">
+              <button
+                className="btn-add"
+                type="button"
+                onClick={sumbitForm}
+                disabled={
+                  Registration.nom &&
+                  Registration.matricule &&
+                  Registration.droit
+                    ? false
+                    : true
+                }
+              >
                 <FontAwesomeIcon icon="check-circle" size="lg" />
                 <span>Confirmer</span>
               </button>

@@ -1,4 +1,4 @@
-@import "../../../../assets/dist/sass/import";
+@import "../../../assets/dist/sass/import";
 .wrap-modal-form {
   position: absolute;
   top: 50%;
@@ -45,6 +45,7 @@
   }
 }
 
+.wrap-modal-form .registration-form,
 .wrap-modal-form .registration-edit-form {
   margin-top: 45px;
   width: 100%;
@@ -88,6 +89,7 @@
   }
   .button_group {
     float: right;
+    .btn-add,
     .btn-edit {
       color: $white;
       background: $primary;
@@ -98,6 +100,12 @@
       font-size: 14px;
       border: none;
       cursor: pointer;
+      &:disabled {
+        user-select: none;
+        opacity: 0.4;
+        background: $gray-700;
+        cursor: not-allowed;
+      }
       svg {
         margin-right: 5px;
       }

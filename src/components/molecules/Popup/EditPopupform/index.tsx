@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import { Modal, FormControl } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import TextField from "@mui/material/TextField";
-import "./Popup.scss";
+import "../Popup.scss";
 
 type Props = {
   _open: boolean;

@@ -7,7 +7,7 @@ const Pages = () => {
   return (
     <React.Suspense>
       {/* <Audit /> */}
-      <Inscription />
+      {/* <Inscription /> */}
     </React.Suspense>
   );
 };
