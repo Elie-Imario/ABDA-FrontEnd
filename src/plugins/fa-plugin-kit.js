@@ -20,12 +20,14 @@ import {
   faRocket,
   faEdit,
   faPen,
+  faLayerGroup,
   faTrashArrowUp,
   faTrashCan,
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
   faListCheck,
+  faLayerGroup,
   faCog,
   faDoorOpen,
   faCheckCircle,

@@ -1,141 +1,158 @@
-@import '../../assets/dist/sass/import';
+@import "../../assets/dist/sass/import";
 
-.left-side{
-    .sidebar-toggle{
-        &{
-            width: 25px;
-            height: 25px;   
-            .navbar-toggler{
-                outline: none;
-                cursor: pointer;
-                border: none;
-                border-radius: .5rem;
-                padding: .5rem; 
-                background: rgba($color: $gray-600, $alpha: .3);
-        
-                &:hover{
-                    & .navbar-toggler-bar.bar1, 
-                    & .navbar-toggler-bar.bar3{
-                        width: 18px;
-                    }
-                }
-                .navbar-toggler-bar {
-                    margin: .2rem;
-                    height: 2px;
-                    border-radius: 1px;
-                    background: $white;
-                    @include flex($align: flex-end, $justify:flex-end, $flexwrap: nowrap);
-                    margin: .25rem;
-        
-                    &.bar1,
-                    &.bar3{
-                        width: 9px;
-                        transition: width .25s ease;
-                    }
-                    &.bar1{
-                        float: right;
-                    }
-                    &.bar2{
-                        width: 18px;
-                    }
-                }
-            }
+.left-side {
+  .sidebar-toggle {
+    & {
+      width: 25px;
+      height: 25px;
+      .navbar-toggler {
+        outline: none;
+        cursor: pointer;
+        border: none;
+        border-radius: 0.5rem;
+        padding: 0.5rem;
+        background: rgba($color: $gray-600, $alpha: 0.3);
+
+        &:hover {
+          & .navbar-toggler-bar.bar1,
+          & .navbar-toggler-bar.bar3 {
+            width: 18px;
+          }
         }
+        .navbar-toggler-bar {
+          margin: 0.2rem;
+          height: 2px;
+          border-radius: 1px;
+          background: $white;
+          @include flex(
+            $align: flex-end,
+            $justify: flex-end,
+            $flexwrap: nowrap
+          );
+          margin: 0.25rem;
+
+          &.bar1,
+          &.bar3 {
+            width: 9px;
+            transition: width 0.25s ease;
+          }
+          &.bar1 {
+            float: right;
+          }
+          &.bar2 {
+            width: 18px;
+          }
+        }
+      }
     }
-    .sidebar-navigation{
-        width: 81%;
-        margin-top: 3rem;
+  }
+  .sidebar-navigation {
+    width: 81%;
+    margin-top: 3rem;
+  }
+
+  & .sidebar-navigation {
+    .sidebar-navgation-brand {
+      width: 100%;
+      span {
+        display: block;
+        margin-bottom: 12px;
+        color: $white;
+        font-size: 25px;
+        @include plusJakartaSansType($weight: 600);
+
+        &.text-background {
+          font-size: 14px;
+          color: $gray-500;
+          @include plusJakartaSansType($weight: 500);
+        }
+      }
+    }
+  }
+
+  & .sidebar-navigation-bloc {
+    margin-top: 45px;
+
+    .menu-category {
+      font-size: 16px;
+      @include plusJakartaSansType($weight: 600);
+      color: $gray-200;
     }
 
-    & .sidebar-navigation{
-        .sidebar-navgation-brand{
-            width: 100%;
-            span{
-                display: block;
-                margin-bottom: 12px;
-                color: $white;
-                font-size: 25px;
-                @include plusJakartaSansType($weight: 600);
-
-                &.text-background{
-                    font-size: 14px;
-                    color: $gray-500;
-                    @include plusJakartaSansType($weight: 500);
-                }
-            }
-        }
+    .sidebar-navigation-items {
+      @include flex(
+        $align: flex-start,
+        $justify: space-between,
+        $flexwrap: wrap,
+        $gap: 36px
+      );
+      margin-top: 36px;
     }
 
-    & .sidebar-navigation-bloc{
-        margin-top: 45px;
+    .sidebar-navigation-items .sidebar-navigation-item {
+      @include flex(
+        $direction: column,
+        $align: center,
+        $justify: center,
+        $gap: 15px
+      );
+      width: 81px;
+      a {
+        text-decoration: none;
+      }
+      &:nth-of-type(1) .box {
+        background: -webkit-linear-gradient(
+          bottom left,
+          $new-dark-blue,
+          $green
+        );
+        background: -o-linear-gradient(bottom left, $new-dark-blue, $green);
+        background: -moz-linear-gradient(bottom left, $new-dark-blue, $green);
+        background: linear-gradient(bottom left, $new-dark-blue, $green);
 
-        .menu-category{
-            font-size: 16px;
-            @include plusJakartaSansType($weight: 600);;
-            color: $gray-200;
+        &.active {
+          position: relative;
+          opacity: 1;
+          transform: scale(1);
         }
-
-        .sidebar-navigation-items{
-            @include flex($align: flex-start, $justify:space-between, $flexwrap: wrap, $gap: 35px);
-            margin-top: 25px;
+        &.active::before {
+          content: "";
+          position: absolute;
+          border: 2px solid $green;
+          width: 100%;
+          height: 100%;
+          padding: 0.45rem;
+          border-radius: 1rem;
         }
+      }
 
-        .sidebar-navigation-items .sidebar-navigation-item{
-            @include flex($direction:column, $align: center, $justify:center, $gap: 15px);
-            width: 81px;
-            a{
-                text-decoration: none;
-            }
-            &:nth-of-type(1) .box{
-                background: -webkit-linear-gradient(bottom left, $new-dark-blue, $green);
-                background: -o-linear-gradient(bottom left,$new-dark-blue, $green);
-                background: -moz-linear-gradient(bottom left, $new-dark-blue, $green);
-                background: linear-gradient(bottom left, $new-dark-blue, $green);
-
-                &.active{
-                    position: relative;
-                    opacity: 1;
-                    transform: scale(1);
-                }
-                &.active::before{
-                    content: '';
-                    position: absolute;
-                    border: 2px solid $green;
-                    width: 100%;
-                    height: 100%;
-                    padding: .45rem;
-                    border-radius: 1rem;
-                }
-            }
-
-            &:nth-of-type(2) .box{
-            background: -webkit-linear-gradient(bottom left, $blue, $new-purple);
-            background: -o-linear-gradient(bottom left, $blue, $new-purple);
-            background: -moz-linear-gradient(bottom left, $blue, $new-purple);
-            background: linear-gradient(bottom left, $blue, $new-purple);
-                &.active{
-                    position: relative;
-                    opacity: 1;
-                    transform: scale(1);
-                }
-                &.active::before{
-                    content: '';
-                    position: absolute;
-                    border: 2px solid $new-purple;
-                    width: 100%;
-                    height: 100%;
-                    padding: .5rem;
-                    border-radius: 1rem;
-                }
-            }
-
-            &:nth-of-type(3) .box{
-                background: -webkit-linear-gradient(bottom left, $new-orange, $red);
-                background: -o-linear-gradient(bottom left, $new-orange, $new-purple);
-                background: -moz-linear-gradient(bottom left, $new-orange, $red);
-                background: linear-gradient(bottom left, $new-orange, $red);
-            }
+      &:nth-of-type(2) .box {
+        background: -webkit-linear-gradient(bottom left, $blue, $new-purple);
+        background: -o-linear-gradient(bottom left, $blue, $new-purple);
+        background: -moz-linear-gradient(bottom left, $blue, $new-purple);
+        background: linear-gradient(bottom left, $blue, $new-purple);
+        &.active {
+          position: relative;
+          opacity: 1;
+          transform: scale(1);
         }
+        &.active::before {
+          content: "";
+          position: absolute;
+          border: 2px solid $new-purple;
+          width: 100%;
+          height: 100%;
+          padding: 0.5rem;
+          border-radius: 1rem;
+        }
+      }
+
+      &:nth-of-type(3) .box {
+        background: -webkit-linear-gradient(bottom left, $new-orange, $red);
+        background: -o-linear-gradient(bottom left, $new-orange, $new-purple);
+        background: -moz-linear-gradient(bottom left, $new-orange, $red);
+        background: linear-gradient(bottom left, $new-orange, $red);
+      }
     }
+  }
 }
-

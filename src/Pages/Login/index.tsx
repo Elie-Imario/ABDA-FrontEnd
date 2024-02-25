@@ -13,8 +13,10 @@ import "./login.scss";
 import { AuthResponse, User, UserLogin } from "../../service/types/dataTypes";
 import { loginIntoAccount } from "../../request/auth.request";
 import { AppContext } from "../../service/context";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
   const { setAppContext } = useContext(AppContext);
   const [showPassword, setShowPassword] = useState(false);
   const [log, setLog] = useState<UserLogin>({
@@ -40,6 +42,7 @@ const Login = () => {
 
         sessionStorage.setItem("connectedUser", JSON.stringify(user));
         setAppContext(user);
+        navigate("/inscriptions");
       }
     });
   };

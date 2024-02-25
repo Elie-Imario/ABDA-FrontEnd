@@ -2,7 +2,6 @@ import { UserLogin } from "../service/types/dataTypes";
 import { url } from "./index";
 
 export const loginIntoAccount = (formData: UserLogin) => {
-  console.log(formData);
   return fetch(`${url}/auth/signin`, {
     method: "POST",
     headers: {
