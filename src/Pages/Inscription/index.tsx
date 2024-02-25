@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import AddPopup from "../../components/molecules/Popup/AddPopupform";
 import EditPopup from "../../components/molecules/Popup/EditPopupform";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { AppContext } from "../../service/context";
 
 //Material Ui Table
 import TableHead from "@mui/material/TableHead";
@@ -13,7 +15,6 @@ import TableFooter from "@mui/material/TableFooter";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-
 import { Bars } from "react-loader-spinner";
 
 import { Etudiant } from "../../service/types/dataTypes";
@@ -21,6 +22,8 @@ import { etudiants } from "../../service/data/mockup.data";
 import "./inscription_styles.scss";
 
 const Inscription = () => {
+  const { UserLogContext } = useContext(AppContext);
+  const navigate = useNavigate();
   //MUI table state configuration
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(0);
@@ -34,6 +37,11 @@ const Inscription = () => {
   const [Registrations, setRegistrations] = useState<Etudiant[]>(
     [] as Etudiant[]
   );
+
+  //on userLog change to undefined
+  useEffect(() => {
+    if (!UserLogContext) navigate("/");
+  }, [UserLogContext]);
 
   useEffect(() => {
     setLoading(true);

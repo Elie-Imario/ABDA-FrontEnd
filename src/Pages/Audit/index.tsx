@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import BoxItem from "../../components/molecules/boxItem";
 import { ActivityDb, AuditActivity } from "../../service/types/dataTypes";
 import { activitiesDb, audits } from "../../service/data/mockup.data";
+import { AppContext } from "../../service/context";
 
 //Material Ui Table
 import TableHead from "@mui/material/TableHead";
@@ -18,6 +20,9 @@ import { Bars } from "react-loader-spinner";
 import "./audit_styles.scss";
 
 const Audit = () => {
+  const { UserLogContext } = useContext(AppContext);
+  const navigate = useNavigate();
+
   //MUI table state configuration
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(0);
@@ -28,6 +33,12 @@ const Audit = () => {
   );
 
   const [Audits, setAudit] = useState<AuditActivity[]>([] as AuditActivity[]);
+
+  //on userLog change to undefined
+  useEffect(() => {
+    if (!UserLogContext) navigate("/");
+  }, [UserLogContext]);
+
   useEffect(() => {
     setActivity(activitiesDb);
     setLoading(true);
