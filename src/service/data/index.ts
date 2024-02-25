@@ -8,6 +8,7 @@ export const pageRoutes = [
     icon: "layer-group",
     component: Inscription,
     label: "Les Inscriptions",
+    adminOnly: false,
   },
   {
     path: "/audits",
@@ -15,5 +16,6 @@ export const pageRoutes = [
     icon: "list-check",
     component: Audit,
     label: "Audits",
+    adminOnly: true,
   },
 ];

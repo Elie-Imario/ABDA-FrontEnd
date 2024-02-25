@@ -1,25 +1,22 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./buttonBox.scss";
+import { AppContext } from "../../../service/context";
 
 type Props = {
   icoName: string;
   buttonLabel: string;
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  onHandleClick: Function;
 };
 
-export const ButtonBox: FC<Props> = ({
-  icoName,
-  buttonLabel,
-  onHandleClick,
-}) => {
-  const handleClick = () => {
-    onHandleClick(buttonLabel);
+export const ButtonBox: FC<Props> = ({ icoName, buttonLabel }) => {
+  const { setAppContext } = useContext(AppContext);
+  const onHandleQuitClick = () => {
+    sessionStorage.clear();
+    setAppContext(undefined);
   };
   return (
     <div className="sidebar-navigation-item">
-      <button className="box" onClick={handleClick}>
+      <button className="box" onClick={onHandleQuitClick}>
         <FontAwesomeIcon icon={icoName} size="3x" />
       </button>
       <span className="caption">{buttonLabel}</span>

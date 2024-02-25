@@ -1,7 +1,7 @@
 @import "../../../assets/dist/sass/import";
 .box {
-  width: 81px;
-  height: 81px;
+  width: 80px;
+  height: 80px;
   @include flex($align: center, $justify: center);
   border-radius: 0.75rem;
   border: none;

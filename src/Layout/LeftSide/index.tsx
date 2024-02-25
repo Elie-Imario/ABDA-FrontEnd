@@ -3,12 +3,12 @@ import { AppContext } from "../../service/context/index.js";
 import { ButtonBox } from "./ButtonBoxItemComponent/ButtonBox.js";
 import "./leftSide.scss";
 import "../../plugins/fa-plugin-kit.js";
-import { PageName, pageRoutes } from "../../service/data/index.js";
+import { pageRoutes } from "../../service/data/index.js";
 import { MenuItem } from "./ButtonBoxItemComponent/MenuItem.js";
 
 const LeftSide = () => {
   const { UserLogContext } = useContext(AppContext);
-  const onHandleQuitClick = () => {};
+
   return (
     <div className="left-side">
       <div className="bloc-limiter">
@@ -33,7 +33,16 @@ const LeftSide = () => {
             <span className="menu-category">Vos Options</span>
             <div className="sidebar-navigation-items">
               {pageRoutes.map((item, key) => {
-                return (
+                return item.adminOnly ? (
+                  UserLogContext?.role.toLowerCase() === "role_admin" && (
+                    <MenuItem
+                      key={key}
+                      icoName={item.icon}
+                      pageName={item.label}
+                      path={item.path}
+                    />
+                  )
+                ) : (
                   <MenuItem
                     key={key}
                     icoName={item.icon}
@@ -42,11 +51,7 @@ const LeftSide = () => {
                   />
                 );
               })}
-              <ButtonBox
-                icoName="door-open"
-                buttonLabel="Quitter la session"
-                onHandleClick={onHandleQuitClick} //mbola dinihina
-              />
+              <ButtonBox icoName="door-open" buttonLabel="Quitter la session" />
             </div>
           </div>
         </div>

@@ -82,7 +82,7 @@
     .sidebar-navigation-items {
       @include flex(
         $align: flex-start,
-        $justify: space-between,
+        $justify: flex-start,
         $flexwrap: wrap,
         $gap: 36px
       );
@@ -118,7 +118,7 @@
         &.active::before {
           content: "";
           position: absolute;
-          border: 2px solid $green;
+          border: 3px solid $green;
           width: 100%;
           height: 100%;
           padding: 0.45rem;
@@ -139,7 +139,7 @@
         &.active::before {
           content: "";
           position: absolute;
-          border: 2px solid $new-purple;
+          border: 3px solid $new-purple;
           width: 100%;
           height: 100%;
           padding: 0.5rem;
@@ -147,7 +147,7 @@
         }
       }
 
-      &:nth-of-type(3) .box {
+      &:last-child .box {
         background: -webkit-linear-gradient(bottom left, $new-orange, $red);
         background: -o-linear-gradient(bottom left, $new-orange, $new-purple);
         background: -moz-linear-gradient(bottom left, $new-orange, $red);
