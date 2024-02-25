@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useContext } from "react";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -10,10 +10,12 @@ import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import img from "../../assets/images/Private data-amico.png";
 import "./login.scss";
-import { UserLogin } from "../../service/types/dataTypes";
-import { loginIntoAccount } from "../../request/login";
+import { AuthResponse, User, UserLogin } from "../../service/types/dataTypes";
+import { loginIntoAccount } from "../../request/auth.request";
+import { AppContext } from "../../service/context";
 
 const Login = () => {
+  const { setAppContext } = useContext(AppContext);
   const [showPassword, setShowPassword] = useState(false);
   const [log, setLog] = useState<UserLogin>({
     userName: "",
@@ -29,8 +31,16 @@ const Login = () => {
   };
 
   const handleConnect = () => {
-    loginIntoAccount(log).then((res) => {
-      console.log(res);
+    loginIntoAccount(log).then((res: AuthResponse) => {
+      if (res.responseStatus === "OK") {
+        const user = {
+          username: res.userName,
+          role: res.authorities[0].authority,
+        } as User;
+
+        sessionStorage.setItem("connectedUser", JSON.stringify(user));
+        setAppContext(user);
+      }
     });
   };
 
