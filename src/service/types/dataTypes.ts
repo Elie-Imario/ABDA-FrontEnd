@@ -22,13 +22,22 @@ export type ActivityDb = {
 };
 
 export type User = {
-  userId: number;
   username: string;
   role: string;
-  password: string;
 };
 
 export type UserLogin = {
   userName: string;
   password: string;
+};
+
+export type AuthResponse = {
+  userName: string;
+  authorities: Authority[];
+  jwtToken: string;
+  responseStatus: string;
+};
+
+type Authority = {
+  authority: string;
 };
