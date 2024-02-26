@@ -1,13 +1,16 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AppContext } from "../../service/context/index.js";
 import { ButtonBox } from "./ButtonBoxItemComponent/ButtonBox.js";
 import "./leftSide.scss";
 import "../../plugins/fa-plugin-kit.js";
 import { pageRoutes } from "../../service/data/index.js";
 import { MenuItem } from "./ButtonBoxItemComponent/MenuItem.js";
+import { User } from "../../service/types/dataTypes.js";
 
 const LeftSide = () => {
-  const { UserLogContext } = useContext(AppContext);
+  const [connectedUser] = useState<User>(
+    useContext(AppContext).UserLogContext as User
+  );
 
   return (
     <div className="left-side">
@@ -23,7 +26,7 @@ const LeftSide = () => {
         <div className="sidebar-navigation">
           <div className="sidebar-navgation-brand">
             <span className="text-uppercase">
-              Bonjour, {UserLogContext?.username}
+              Bonjour, {connectedUser?.username}
             </span>
             <span className="sub-title text-background">
               Bienvenue sur votre espace de travail!
@@ -32,25 +35,22 @@ const LeftSide = () => {
           <div className="sidebar-navigation-bloc">
             <span className="menu-category">Vos Options</span>
             <div className="sidebar-navigation-items">
-              {pageRoutes.map((item, key) => {
-                return item.adminOnly ? (
-                  UserLogContext?.role.toLowerCase() === "role_admin" && (
+              {pageRoutes
+                .filter(
+                  (pageRoute) =>
+                    pageRoute.authoritiesLevel.indexOf(connectedUser?.role) !==
+                      -1 && pageRoute
+                )
+                .map((item, key) => {
+                  return (
                     <MenuItem
                       key={key}
                       icoName={item.icon}
                       pageName={item.label}
                       path={item.path}
                     />
-                  )
-                ) : (
-                  <MenuItem
-                    key={key}
-                    icoName={item.icon}
-                    pageName={item.label}
-                    path={item.path}
-                  />
-                );
-              })}
+                  );
+                })}
               <ButtonBox icoName="door-open" buttonLabel="Quitter la session" />
             </div>
           </div>
