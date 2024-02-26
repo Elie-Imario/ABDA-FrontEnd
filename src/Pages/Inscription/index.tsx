@@ -18,8 +18,8 @@ import Paper from "@mui/material/Paper";
 import { Bars } from "react-loader-spinner";
 
 import { Etudiant } from "../../service/types/dataTypes";
-import { etudiants } from "../../service/data/mockup.data";
 import "./inscription_styles.scss";
+import { getAllInscriptions } from "../../request/insciprition.request";
 
 const Inscription = () => {
   const { UserLogContext } = useContext(AppContext);
@@ -45,10 +45,12 @@ const Inscription = () => {
 
   useEffect(() => {
     setLoading(true);
-    setTimeout(() => {
+    getAllInscriptions(
+      JSON.parse(sessionStorage.getItem("userjwttoken") as string)
+    ).then((res) => {
+      setRegistrations(res);
       setLoading(false);
-    }, 500);
-    setRegistrations(etudiants);
+    });
   }, []);
 
   const handleChangePage = (
