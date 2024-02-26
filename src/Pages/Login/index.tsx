@@ -41,6 +41,7 @@ const Login = () => {
         } as User;
 
         sessionStorage.setItem("connectedUser", JSON.stringify(user));
+        sessionStorage.setItem("userjwttoken", JSON.stringify(res.jwtToken));
         setAppContext(user);
         navigate("/inscriptions");
       }
