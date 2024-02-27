@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BoxItem from "../../components/molecules/boxItem";
 import { ActivityDb, AuditActivity } from "../../service/types/dataTypes";
@@ -18,6 +18,7 @@ import Paper from "@mui/material/Paper";
 
 import { Bars } from "react-loader-spinner";
 import "./audit_styles.scss";
+import { getAudits } from "../../request/audit.request";
 
 const Audit = () => {
   const { UserLogContext } = useContext(AppContext);
@@ -42,10 +43,12 @@ const Audit = () => {
   useEffect(() => {
     setActivity(activitiesDb);
     setLoading(true);
-    setAudit(audits);
-    setTimeout(() => {
+    getAudits(
+      JSON.parse(sessionStorage.getItem("userjwttoken") as string)
+    ).then((res) => {
+      setAudit(res);
       setLoading(false);
-    }, 500);
+    });
   }, []);
 
   const handleChangePage = (
@@ -97,20 +100,19 @@ const Audit = () => {
               >
                 <TableHead className="text-center text-primary">
                   <TableRow>
-                    <TableCell>#</TableCell>
-                    <TableCell>Type</TableCell>
-                    <TableCell>Effectué par</TableCell>
                     <TableCell>Date</TableCell>
                     <TableCell>Matricule</TableCell>
                     <TableCell>Nom</TableCell>
                     <TableCell>Ancien droit (Ar)</TableCell>
                     <TableCell>Nouvaeu droit (Ar)</TableCell>
+                    <TableCell>Type</TableCell>
+                    <TableCell>Effectué par</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {loading ? (
                     <TableRow>
-                      <TableCell component="td" colSpan={8} className="bg-dark">
+                      <TableCell component="td" colSpan={7} className="bg-dark">
                         <Bars
                           height="25"
                           width="25"
@@ -130,33 +132,24 @@ const Audit = () => {
                       : Audits
                     ).map((item, index) => (
                       <TableRow key={index} className="text-center">
-                        <TableCell component="td" style={{ width: 100 }}>
-                          AC-{item.audit_id}
-                        </TableCell>
                         <TableCell component="td">
-                          {item.actionType.toUpperCase()}
-                        </TableCell>
-                        <TableCell component="td">{item.utilisateur}</TableCell>
-                        <TableCell component="td">
-                          {item.editedAt.toLocaleDateString()}
+                          {new Date(item.createdAt).toLocaleDateString()}
                         </TableCell>
                         <TableCell component="td">{item.matricule}</TableCell>
                         <TableCell component="td">{item.nom}</TableCell>
                         <TableCell component="td">
-                          {item.oldDroitInscription
-                            ? item.oldDroitInscription
-                            : "~"}
+                          {item.oldDroit ? item.oldDroit : "~"}
                         </TableCell>
                         <TableCell component="td">
-                          {item.newDroitInscription
-                            ? item.newDroitInscription
-                            : "~"}
+                          {item.newDroit ? item.newDroit : "~"}
                         </TableCell>
+                        <TableCell component="td">{item.actionType}</TableCell>
+                        <TableCell component="td">{item.responsable}</TableCell>
                       </TableRow>
                     ))
                   ) : (
                     <TableRow className="text-center text-background">
-                      <TableCell component="td" colSpan={8}>
+                      <TableCell component="td" colSpan={7}>
                         Aucune information disponible
                       </TableCell>
                     </TableRow>
@@ -171,7 +164,7 @@ const Audit = () => {
                         25,
                         { label: "Tout", value: -1 },
                       ]}
-                      colSpan={8}
+                      colSpan={7}
                       count={audits.length}
                       rowsPerPage={rowsPerPage}
                       page={page}

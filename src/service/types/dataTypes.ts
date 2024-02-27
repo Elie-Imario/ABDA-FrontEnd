@@ -6,14 +6,15 @@ export type Etudiant = {
 };
 
 export type AuditActivity = {
-  audit_id: number;
-  actionType: string;
-  editedAt: Date;
+  auditId: number;
+  inscriptionId: number;
   nom: string;
   matricule: string;
-  oldDroitInscription: number | null;
-  newDroitInscription: number | null;
-  utilisateur: string;
+  oldDroit: number | null;
+  newDroit: number | null;
+  createdAt: Date;
+  responsable: string;
+  actionType: string;
 };
 
 export type ActivityDb = {
