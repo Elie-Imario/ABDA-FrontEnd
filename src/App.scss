@@ -21,11 +21,16 @@ body {
     .left-side,
     .right-side {
       position: relative;
+      overflow: hidden;
       .bloc-limiter {
         width: 90%;
         margin: 15px auto;
         height: 100%;
         position: relative;
+
+        &.m-0 {
+          margin: 0 auto;
+        }
       }
     }
     .right-side {

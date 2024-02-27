@@ -1,4 +1,4 @@
-$white:    #fff !default;
+$white: #fff !default;
 $gray-100: #f8f9fa !default;
 $gray-200: #e9ecef !default;
 $gray-300: #dee2e6 !default;
@@ -7,46 +7,41 @@ $gray-500: #adb5bd !default;
 $gray-600: #6c757d !default;
 $gray-700: #495057 !default;
 $gray-800: #343a40 !default;
-$gray-900: #1F2025 !default;
-$black:    #000 !default;
+$gray-900: #1f2025 !default;
+$black: #000 !default;
 
-$blue:    #007bff !default;
-$red:     #dc3545 !default;
-$yellow:  #ffc107 !default;
+$blue: #007bff !default;
+$red: #dc3545 !default;
+$yellow: #ffc107 !default;
 $green: #08cf96 !default;
-$green-2: #0ACE50 !default;
-$green-success:   #28a745 !default;
-$teal:    #20c997 !default;
-$cyan:    #17a2b8 !default;
+$green-2: #00a676 !default;
+$green-success: #28a745 !default;
+$teal: #20c997 !default;
+$cyan: #17a2b8 !default;
 
-
-$new-blue:            #1DC7EA;
-$new-purple:          #9368E9;
-$new-red:             #FB404B;
-$new-green:           #87CB16;
-$new-orange:          #FFA534;
-$new-dark-blue:       #1F77D0;
-$new-black:           #5e5e5e;
+$new-blue: #1dc7ea;
+$new-purple: #9368e9;
+$new-red: #fb404b;
+$new-green: #87cb16;
+$new-orange: #ffa534;
+$new-dark-blue: #1f77d0;
+$new-black: #5e5e5e;
 
 //Theme color
-$primary:       $green !default;
-$secondary:     $gray-600 !default;
-$success:       $green-success !default;
-$info:          $cyan !default;
-$warning:       $yellow !default;
-$danger:        $red !default;
-$light:         $gray-100 !default;
-$dark:          $gray-900 !default;
-
-
+$primary: $green !default;
+$secondary: $gray-600 !default;
+$success: $green-success !default;
+$info: $cyan !default;
+$warning: $yellow !default;
+$danger: $red !default;
+$light: $gray-100 !default;
+$dark: $gray-900 !default;
 
 //font-family
-$PlusJakartaSansRegular : 'Plus Jakarta Sans';
-$PlusJakartaSansLight : 'PlusJakartaSans-Light';
-$PlusJakartaSansSemiBold : 'PlusJakartaSans-SemiBold';
-$PlusJakartaSansBold : 'PlusJakartaSans-Bold';
-$PoppinsRegular : 'Poppins-Regular';
-$PoppinsLight : 'Poppins-Light';
-$PoppinsSemiBold : 'Poppins-SemiBold';
-
-
+$PlusJakartaSansRegular: "Plus Jakarta Sans";
+$PlusJakartaSansLight: "PlusJakartaSans-Light";
+$PlusJakartaSansSemiBold: "PlusJakartaSans-SemiBold";
+$PlusJakartaSansBold: "PlusJakartaSans-Bold";
+$PoppinsRegular: "Poppins-Regular";
+$PoppinsLight: "Poppins-Light";
+$PoppinsSemiBold: "Poppins-SemiBold";

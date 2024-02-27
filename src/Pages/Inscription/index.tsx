@@ -99,13 +99,19 @@ const Inscription = () => {
         </div>
         <div className="content-body-body">
           <div className="tab-section">
-            {UserLogContext?.role === "ROLE_USER" && (
-              <div className={`btn-action ${open ? "hide" : ""}`}>
-                <button className="btn-add" onClick={handleClickOpen}>
-                  <FontAwesomeIcon icon="plus" size="lg" />
-                </button>
-              </div>
-            )}
+            <div className="table-list-header">
+              {UserLogContext?.role === "ROLE_USER" && (
+                <div className="btn-action">
+                  <button
+                    type="button"
+                    className="btn btn-add"
+                    onClick={handleClickOpen}
+                  >
+                    <FontAwesomeIcon icon="plus" size="lg" />
+                  </button>
+                </div>
+              )}
+            </div>
             <TableContainer component={Paper} className="no-shadow">
               <Table
                 sx={{ minWidth: 500 }}
