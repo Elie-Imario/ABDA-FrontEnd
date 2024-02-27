@@ -17,9 +17,12 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Bars } from "react-loader-spinner";
 
-import { Etudiant } from "../../service/types/dataTypes";
+import { Etudiant, RegistrationResponse } from "../../service/types/dataTypes";
 import "./inscription_styles.scss";
-import { getAllInscriptions } from "../../request/inscription.request";
+import {
+  deleteInscription,
+  getAllInscriptions,
+} from "../../request/inscription.request";
 
 const Inscription = () => {
   const { UserLogContext } = useContext(AppContext);
@@ -53,7 +56,7 @@ const Inscription = () => {
     });
   }, []);
 
-  const currentItems = Registrations.sort((a, b) =>
+  const RegistrationsSort = Registrations.sort((a, b) =>
     a.inscriptionId > b.inscriptionId ? -1 : 1
   );
 
@@ -80,6 +83,27 @@ const Inscription = () => {
     setRegistrationId(id);
     setDefaultModal(true);
     setOpen(true);
+  };
+
+  const handleDelete = (id: number) => {
+    if (confirm("Retirer l'inscription de l'etudiant(e) ?")) {
+      deleteInscription(
+        id,
+        JSON.parse(sessionStorage.getItem("userjwttoken") as string)
+      ).then((res: RegistrationResponse) => {
+        if (res.responseStatus === "NO_CONTENT") {
+          setRegistrations(
+            Registrations.filter((item) => item.inscriptionId != id)
+          );
+          const currentItems = Registrations.filter(
+            (item) => item.inscriptionId != id
+          ).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+          currentItems.length > 0
+            ? setPage(page)
+            : setPage(page > 0 ? page - 1 : page);
+        }
+      });
+    }
   };
 
   return (
@@ -151,13 +175,13 @@ const Inscription = () => {
                         />
                       </TableCell>
                     </TableRow>
-                  ) : currentItems.length > 0 ? (
+                  ) : RegistrationsSort.length > 0 ? (
                     (rowsPerPage > 0
-                      ? currentItems.slice(
+                      ? RegistrationsSort.slice(
                           page * rowsPerPage,
                           page * rowsPerPage + rowsPerPage
                         )
-                      : currentItems
+                      : RegistrationsSort
                     ).map((item, index) => (
                       <TableRow key={index} className="text-center">
                         <TableCell component="td">{item.matricule}</TableCell>
@@ -179,7 +203,7 @@ const Inscription = () => {
                               <button
                                 className="btn-action"
                                 onClick={() => {
-                                  console.log("hello world");
+                                  handleDelete(item.inscriptionId);
                                 }}
                               >
                                 <FontAwesomeIcon icon="trash-can" size="lg" />
@@ -207,7 +231,7 @@ const Inscription = () => {
                         { label: "Tout", value: -1 },
                       ]}
                       colSpan={4}
-                      count={currentItems.length}
+                      count={RegistrationsSort.length}
                       rowsPerPage={rowsPerPage}
                       page={page}
                       labelRowsPerPage="Lignes par page"

@@ -27,3 +27,14 @@ export const register = async (formData: Registration, token: string) => {
     }),
   }).then((res) => res.json());
 };
+
+export const deleteInscription = (id: number, token: string) => {
+  return fetch(`${url}/inscriptions/${id}`, {
+    method: "DELETE",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  }).then((res) => res.json());
+};

@@ -57,4 +57,5 @@ export type Registration = {
 export type RegistrationResponse = {
   inscription: Etudiant;
   responseStatus: string;
+  responseMessage: string;
 };
