@@ -4,12 +4,18 @@ import { Modal, FormControl } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import TextField from "@mui/material/TextField";
 import "../Popup.scss";
-import { getRegistrationById } from "../../../../request/inscription.request";
-import { Etudiant } from "../../../../service/types/dataTypes";
+import {
+  getRegistrationById,
+  updateRegister,
+} from "../../../../request/inscription.request";
+import {
+  Etudiant,
+  RegistrationResponse,
+} from "../../../../service/types/dataTypes";
 
 type Props = {
   _open: boolean;
-  _id: number | undefined;
+  _id: number;
   // eslint-disable-next-line @typescript-eslint/ban-types
   _setOpen: Function;
 };
@@ -49,13 +55,27 @@ const EditPopup: FC<Props> = ({ _open, _setOpen, _id }) => {
   const onHandleChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    if (event.target.value.length <= 3) {
+    if (event.target.value.length <= 6) {
       const targetValue = event.target.value.replace(/\D/g, "");
       const value = targetValue ? Number.parseInt(targetValue) : 0;
       setRegistration({ ...Registration, droitInscription: value });
     } else {
       event.target.value.replace(/\d/g, "");
     }
+  };
+
+  const sumbitForm = () => {
+    updateRegister(
+      _id,
+      Registration,
+      JSON.parse(sessionStorage.getItem("userjwttoken") as string)
+    ).then((res: RegistrationResponse) => {
+      if (res.responseStatus === "OK") {
+        console.log(res);
+        handleClose();
+      }
+      handleClose();
+    });
   };
 
   return (
@@ -155,7 +175,18 @@ const EditPopup: FC<Props> = ({ _open, _setOpen, _id }) => {
                 />
               </FormControl>
               <div className="button_group">
-                <button className="btn-edit" type="button">
+                <button
+                  className="btn-edit"
+                  type="button"
+                  onClick={sumbitForm}
+                  disabled={
+                    Registration.nom &&
+                    Registration.matricule &&
+                    Registration.droitInscription
+                      ? false
+                      : true
+                  }
+                >
                   <FontAwesomeIcon icon="save" size="lg" />
                   <span>Enregistrer</span>
                 </button>

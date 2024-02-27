@@ -39,6 +39,26 @@ export const getRegistrationById = (id: number, token: string) => {
   }).then((res) => res.json());
 };
 
+export const updateRegister = async (
+  id: number,
+  formData: Registration,
+  token: string
+) => {
+  return await fetch(`${url}/inscriptions/${id}`, {
+    method: "PUT",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      nom: formData.nom,
+      matricule: formData.matricule,
+      droitInscription: formData.droitInscription,
+    }),
+  }).then((res) => res.json());
+};
+
 export const deleteInscription = (id: number, token: string) => {
   return fetch(`${url}/inscriptions/${id}`, {
     method: "DELETE",
