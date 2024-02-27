@@ -119,8 +119,9 @@ const Inscription = () => {
           ) : (
             <EditPopup
               _open={open}
+              _id={registration_toEdit as number}
+              _inscriptions={Registrations}
               _setOpen={setOpen}
-              _id={registration_toEdit}
             ></EditPopup>
           )}
         </div>

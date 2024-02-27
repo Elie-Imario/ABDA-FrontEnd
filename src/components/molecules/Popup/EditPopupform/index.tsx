@@ -16,13 +16,14 @@ import {
 type Props = {
   _open: boolean;
   _id: number;
+  _inscriptions: Etudiant[];
   // eslint-disable-next-line @typescript-eslint/ban-types
   _setOpen: Function;
 };
 
-const EditPopup: FC<Props> = ({ _open, _setOpen, _id }) => {
+const EditPopup: FC<Props> = ({ _open, _inscriptions, _id, _setOpen }) => {
   const [Registration, setRegistration] = useState<Etudiant>({} as Etudiant);
-  const [defaultRegistration, setDefaultRegistration] = useState<Etudiant>(
+  const [DefaultRegistration, setDefaultRegistration] = useState<Etudiant>(
     {} as Etudiant
   );
   const [errorMsg, setErrorMsg] = useState<string>("");
@@ -38,6 +39,7 @@ const EditPopup: FC<Props> = ({ _open, _setOpen, _id }) => {
         matricule: res.matricule,
         droitInscription: res.droitInscription,
       });
+
       setDefaultRegistration({
         inscriptionId: res.inscriptionId,
         nom: res.nom,
@@ -48,7 +50,23 @@ const EditPopup: FC<Props> = ({ _open, _setOpen, _id }) => {
   }, [_id]);
 
   const handleClose = () => {
-    setRegistration(defaultRegistration);
+    if (
+      Registration.nom !== DefaultRegistration.nom ||
+      Registration.matricule !== DefaultRegistration.matricule ||
+      Registration.droitInscription !== DefaultRegistration.droitInscription
+    ) {
+      getRegistrationById(
+        _id as number,
+        JSON.parse(sessionStorage.getItem("userjwttoken") as string)
+      ).then((res: Etudiant) => {
+        setRegistration({
+          inscriptionId: res.inscriptionId,
+          nom: res.nom,
+          matricule: res.matricule,
+          droitInscription: res.droitInscription,
+        });
+      });
+    }
     _setOpen(false);
   };
 
@@ -71,8 +89,12 @@ const EditPopup: FC<Props> = ({ _open, _setOpen, _id }) => {
       JSON.parse(sessionStorage.getItem("userjwttoken") as string)
     ).then((res: RegistrationResponse) => {
       if (res.responseStatus === "OK") {
-        console.log(res);
-        handleClose();
+        const Obj = _inscriptions.findIndex(
+          (item) => item.inscriptionId === _id
+        );
+        _inscriptions[Obj].nom = Registration.nom;
+        _inscriptions[Obj].matricule = Registration.matricule;
+        _inscriptions[Obj].droitInscription = Registration.droitInscription;
       }
       handleClose();
     });
