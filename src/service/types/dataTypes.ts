@@ -47,3 +47,14 @@ export type AuthResponse = {
 type Authority = {
   authority: string;
 };
+
+export type Registration = {
+  nom: string;
+  matricule: string;
+  droitInscription: number;
+};
+
+export type RegistrationResponse = {
+  inscription: Etudiant;
+  responseStatus: string;
+};

@@ -4,30 +4,32 @@ import { Modal, FormControl } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import TextField from "@mui/material/TextField";
 import "../Popup.scss";
+import {
+  Etudiant,
+  Registration,
+  RegistrationResponse,
+} from "../../../../service/types/dataTypes";
+import { register } from "../../../../request/inscription.request";
 
-type Registration = {
-  nom: string;
-  matricule: string;
-  droit: number;
-};
 type Props = {
   _open: boolean;
+  _inscriptions: Etudiant[];
   // eslint-disable-next-line @typescript-eslint/ban-types
   _setOpen: Function;
 };
 
-const AddPopup: FC<Props> = ({ _open, _setOpen }) => {
+const AddPopup: FC<Props> = ({ _open, _inscriptions, _setOpen }) => {
   const [Registration, setRegistration] = useState<Registration>({
     nom: "",
     matricule: "",
-    droit: 0,
+    droitInscription: 0,
   });
 
   const [errorMsg, setErrorMsg] = useState<string>("");
 
   const handleClose = () => {
     _setOpen(false);
-    setRegistration({ nom: "", matricule: "", droit: 0 });
+    setRegistration({ nom: "", matricule: "", droitInscription: 0 });
   };
 
   const onHandleChange = (
@@ -36,14 +38,23 @@ const AddPopup: FC<Props> = ({ _open, _setOpen }) => {
     if (event.target.value.length <= 6) {
       const targetValue = event.target.value.replace(/\D/g, "");
       const value = targetValue ? Number.parseInt(targetValue) : 0;
-      setRegistration({ ...Registration, droit: value });
+      setRegistration({ ...Registration, droitInscription: value });
     } else {
       event.target.value.replace(/\d/g, "");
     }
   };
 
   const sumbitForm = () => {
-    console.log(Registration);
+    register(
+      Registration,
+      JSON.parse(sessionStorage.getItem("userjwttoken") as string)
+    ).then((res: RegistrationResponse) => {
+      if (res.responseStatus === "CREATED") {
+        _inscriptions.push(res.inscription);
+        handleClose();
+      }
+      handleClose();
+    });
   };
 
   return (
@@ -127,11 +138,11 @@ const AddPopup: FC<Props> = ({ _open, _setOpen }) => {
                   )
                 }
                 required
-                label="Capacité d'acceuil"
-                name="sallecapacity"
+                label="Droit d'inscription (Ar)"
+                name="droit"
                 id="input"
                 className="input100"
-                value={Registration.droit}
+                value={Registration.droitInscription}
                 onChange={onHandleChange}
               />
             </FormControl>
@@ -143,7 +154,7 @@ const AddPopup: FC<Props> = ({ _open, _setOpen }) => {
                 disabled={
                   Registration.nom &&
                   Registration.matricule &&
-                  Registration.droit
+                  Registration.droitInscription
                     ? false
                     : true
                 }

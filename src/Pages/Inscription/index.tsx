@@ -19,7 +19,7 @@ import { Bars } from "react-loader-spinner";
 
 import { Etudiant } from "../../service/types/dataTypes";
 import "./inscription_styles.scss";
-import { getAllInscriptions } from "../../request/insciprition.request";
+import { getAllInscriptions } from "../../request/inscription.request";
 
 const Inscription = () => {
   const { UserLogContext } = useContext(AppContext);
@@ -83,7 +83,11 @@ const Inscription = () => {
       {UserLogContext?.role === "ROLE_USER" && (
         <div className="modal-limiter">
           {!defaultModal ? (
-            <AddPopup _open={open} _setOpen={setOpen}></AddPopup>
+            <AddPopup
+              _open={open}
+              _inscriptions={Registrations}
+              _setOpen={setOpen}
+            ></AddPopup>
           ) : (
             <EditPopup
               _open={open}
