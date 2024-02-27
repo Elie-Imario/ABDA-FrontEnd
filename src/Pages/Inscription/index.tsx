@@ -80,28 +80,32 @@ const Inscription = () => {
 
   return (
     <>
-      <div className="modal-limiter">
-        {!defaultModal ? (
-          <AddPopup _open={open} _setOpen={setOpen}></AddPopup>
-        ) : (
-          <EditPopup
-            _open={open}
-            _setOpen={setOpen}
-            _id={registration_toEdit}
-          ></EditPopup>
-        )}
-      </div>
+      {UserLogContext?.role === "ROLE_USER" && (
+        <div className="modal-limiter">
+          {!defaultModal ? (
+            <AddPopup _open={open} _setOpen={setOpen}></AddPopup>
+          ) : (
+            <EditPopup
+              _open={open}
+              _setOpen={setOpen}
+              _id={registration_toEdit}
+            ></EditPopup>
+          )}
+        </div>
+      )}
       <div className="bloc-limiter">
         <div className="title-lead">
           <span>Les inscriptions</span>
         </div>
         <div className="content-body-body">
           <div className="tab-section">
-            <div className={`btn-action ${open ? "hide" : ""}`}>
-              <button className="btn-add" onClick={handleClickOpen}>
-                <FontAwesomeIcon icon="plus" size="lg" />
-              </button>
-            </div>
+            {UserLogContext?.role === "ROLE_USER" && (
+              <div className={`btn-action ${open ? "hide" : ""}`}>
+                <button className="btn-add" onClick={handleClickOpen}>
+                  <FontAwesomeIcon icon="plus" size="lg" />
+                </button>
+              </div>
+            )}
             <TableContainer component={Paper} className="no-shadow">
               <Table
                 sx={{ minWidth: 500 }}
@@ -114,7 +118,9 @@ const Inscription = () => {
                     <TableCell>Matricule</TableCell>
                     <TableCell>Nom</TableCell>
                     <TableCell>Droit d'inscripttion (Ar)</TableCell>
-                    <TableCell></TableCell>
+                    {UserLogContext?.role === "ROLE_USER" && (
+                      <TableCell></TableCell>
+                    )}
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -145,26 +151,28 @@ const Inscription = () => {
                         <TableCell component="td">
                           {item.droitInscription}
                         </TableCell>
-                        <TableCell component="td">
-                          <div className="btn_action_group">
-                            <button
-                              className="btn-action"
-                              onClick={() => {
-                                OpenEditModal(item.inscriptionId);
-                              }}
-                            >
-                              <FontAwesomeIcon icon="edit" size="lg" />
-                            </button>
-                            <button
-                              className="btn-action"
-                              onClick={() => {
-                                console.log("hello world");
-                              }}
-                            >
-                              <FontAwesomeIcon icon="trash-can" size="lg" />
-                            </button>
-                          </div>
-                        </TableCell>
+                        {UserLogContext?.role === "ROLE_USER" && (
+                          <TableCell component="td">
+                            <div className="btn_action_group">
+                              <button
+                                className="btn-action"
+                                onClick={() => {
+                                  OpenEditModal(item.inscriptionId);
+                                }}
+                              >
+                                <FontAwesomeIcon icon="edit" size="lg" />
+                              </button>
+                              <button
+                                className="btn-action"
+                                onClick={() => {
+                                  console.log("hello world");
+                                }}
+                              >
+                                <FontAwesomeIcon icon="trash-can" size="lg" />
+                              </button>
+                            </div>
+                          </TableCell>
+                        )}
                       </TableRow>
                     ))
                   ) : (
