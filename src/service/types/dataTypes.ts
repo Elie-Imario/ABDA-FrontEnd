@@ -5,6 +5,11 @@ export type Etudiant = {
   droitInscription: number;
 };
 
+export type AuditActivityResponse = {
+  audits: AuditActivity[];
+  responseStatus: string;
+};
+
 export type AuditActivity = {
   auditId: number;
   inscriptionId: number;

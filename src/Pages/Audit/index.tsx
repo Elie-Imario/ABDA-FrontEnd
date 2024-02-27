@@ -1,9 +1,17 @@
-import { useContext, useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BoxItem from "../../components/molecules/boxItem";
-import { ActivityDb, AuditActivity } from "../../service/types/dataTypes";
-import { activitiesDb, audits } from "../../service/data/mockup.data";
+import {
+  ActivityDb,
+  AuditActivity,
+  AuditActivityResponse,
+} from "../../service/types/dataTypes";
 import { AppContext } from "../../service/context";
+
+import {
+  getAuditDetailsActivity,
+  getAudits,
+} from "../../request/audit.request";
 
 //Material Ui Table
 import TableHead from "@mui/material/TableHead";
@@ -17,8 +25,8 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
 import { Bars } from "react-loader-spinner";
+
 import "./audit_styles.scss";
-import { getAudits } from "../../request/audit.request";
 
 const Audit = () => {
   const { UserLogContext } = useContext(AppContext);
@@ -29,7 +37,7 @@ const Audit = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
-  const [ActivitiesonDb, setActivity] = useState<ActivityDb[]>(
+  const [revisionDetails, setRevisionsDetail] = useState<ActivityDb[]>(
     [] as ActivityDb[]
   );
 
@@ -41,12 +49,18 @@ const Audit = () => {
   }, [UserLogContext]);
 
   useEffect(() => {
-    setActivity(activitiesDb);
     setLoading(true);
     getAudits(
       JSON.parse(sessionStorage.getItem("userjwttoken") as string)
-    ).then((res) => {
-      setAudit(res);
+    ).then((res: AuditActivityResponse) => {
+      if (res.responseStatus === "OK") {
+        setAudit(res.audits);
+        getAuditDetailsActivity(
+          JSON.parse(sessionStorage.getItem("userjwttoken") as string)
+        ).then((res) => {
+          setRevisionsDetail(res);
+        });
+      }
       setLoading(false);
     });
   }, []);
@@ -76,7 +90,7 @@ const Audit = () => {
       <div className="content-body no-scroll">
         <div className="content-body-header">
           <div className="box-items">
-            {ActivitiesonDb.map((item, index) => {
+            {revisionDetails.map((item, index) => {
               return (
                 <BoxItem key={index} label={item.type} data={item.total} />
               );
@@ -165,7 +179,7 @@ const Audit = () => {
                         { label: "Tout", value: -1 },
                       ]}
                       colSpan={7}
-                      count={audits.length}
+                      count={Audits.length}
                       rowsPerPage={rowsPerPage}
                       page={page}
                       labelRowsPerPage="Lignes par page"
