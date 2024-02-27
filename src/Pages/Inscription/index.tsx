@@ -53,6 +53,10 @@ const Inscription = () => {
     });
   }, []);
 
+  const currentItems = Registrations.sort((a, b) =>
+    a.inscriptionId > b.inscriptionId ? -1 : 1
+  );
+
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
     newPage: number
@@ -147,13 +151,13 @@ const Inscription = () => {
                         />
                       </TableCell>
                     </TableRow>
-                  ) : Registrations.length > 0 ? (
+                  ) : currentItems.length > 0 ? (
                     (rowsPerPage > 0
-                      ? Registrations.slice(
+                      ? currentItems.slice(
                           page * rowsPerPage,
                           page * rowsPerPage + rowsPerPage
                         )
-                      : Registrations
+                      : currentItems
                     ).map((item, index) => (
                       <TableRow key={index} className="text-center">
                         <TableCell component="td">{item.matricule}</TableCell>
@@ -203,7 +207,7 @@ const Inscription = () => {
                         { label: "Tout", value: -1 },
                       ]}
                       colSpan={4}
-                      count={Registrations.length}
+                      count={currentItems.length}
                       rowsPerPage={rowsPerPage}
                       page={page}
                       labelRowsPerPage="Lignes par page"
