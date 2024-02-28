@@ -3,13 +3,14 @@ import Box from "@mui/material/Box";
 import { Modal, FormControl } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import TextField from "@mui/material/TextField";
-import "../Popup.scss";
 import {
   Etudiant,
   Registration,
   RegistrationResponse,
 } from "../../../../service/types/dataTypes";
 import { register } from "../../../../request/inscription.request";
+import "../Popup.scss";
+import { toast } from "react-toastify";
 
 type Props = {
   _open: boolean;
@@ -52,8 +53,21 @@ const AddPopup: FC<Props> = ({ _open, _inscriptions, _setOpen }) => {
       if (res.responseStatus === "CREATED") {
         _inscriptions.push(res.inscription);
         handleClose();
+        toastifySuccess(res.responseMessage);
       }
-      handleClose();
+    });
+  };
+
+  const toastifySuccess = (msg: string) => {
+    toast.success(msg, {
+      position: "top-right",
+      autoClose: 2500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
     });
   };
 

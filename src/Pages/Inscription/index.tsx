@@ -18,11 +18,13 @@ import Paper from "@mui/material/Paper";
 import { Bars } from "react-loader-spinner";
 
 import { Etudiant, RegistrationResponse } from "../../service/types/dataTypes";
-import "./inscription_styles.scss";
 import {
   deleteInscription,
   getAllInscriptions,
 } from "../../request/inscription.request";
+import { ToastContainer, toast } from "react-toastify";
+import "./inscription_styles.scss";
+import "react-toastify/dist/ReactToastify.css";
 
 const Inscription = () => {
   const { UserLogContext } = useContext(AppContext);
@@ -101,9 +103,23 @@ const Inscription = () => {
           currentItems.length > 0
             ? setPage(page)
             : setPage(page > 0 ? page - 1 : page);
+          toastifySuccess(res.responseMessage);
         }
       });
     }
+  };
+
+  const toastifySuccess = (msg: string) => {
+    toast.success(msg, {
+      position: "top-right",
+      autoClose: 2500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
   };
 
   return (
@@ -130,6 +146,28 @@ const Inscription = () => {
         <div className="title-lead">
           <span>Les inscriptions</span>
         </div>
+        {UserLogContext?.role === "ROLE_USER" && (
+          <ToastContainer
+            position="top-right"
+            autoClose={2500}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+            toastStyle={{
+              marginTop: 30,
+              borderRadius: 9,
+              fontFamily: "Plus Jakarta Sans",
+              fontWeight: 500,
+              fontSize: 12,
+              color: "#6c757d",
+            }}
+          />
+        )}
         <div className="content-body-body">
           <div className="tab-section">
             <div className="table-list-header">

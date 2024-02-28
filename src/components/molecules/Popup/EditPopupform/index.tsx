@@ -3,7 +3,6 @@ import Box from "@mui/material/Box";
 import { Modal, FormControl } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import TextField from "@mui/material/TextField";
-import "../Popup.scss";
 import {
   getRegistrationById,
   updateRegister,
@@ -12,6 +11,8 @@ import {
   Etudiant,
   RegistrationResponse,
 } from "../../../../service/types/dataTypes";
+import { toast } from "react-toastify";
+import "../Popup.scss";
 
 type Props = {
   _open: boolean;
@@ -97,6 +98,20 @@ const EditPopup: FC<Props> = ({ _open, _inscriptions, _id, _setOpen }) => {
         _inscriptions[Obj].droitInscription = Registration.droitInscription;
       }
       handleClose();
+      toastifySuccess(res.responseMessage);
+    });
+  };
+
+  const toastifySuccess = (msg: string) => {
+    toast.success(msg, {
+      position: "top-right",
+      autoClose: 2500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
     });
   };
 
