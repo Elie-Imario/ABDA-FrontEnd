@@ -38,14 +38,15 @@ export type UserLogin = {
 };
 
 export type AuthResponse = {
-  userName: string;
+  userName?: string;
   authorities: Authority[];
-  jwtToken: string;
+  jwtToken?: string;
   responseStatus: string;
+  responseMessage: string;
 };
 
 type Authority = {
-  authority: string;
+  authority?: string;
 };
 
 export type Registration = {
@@ -58,4 +59,9 @@ export type RegistrationResponse = {
   inscription: Etudiant;
   responseStatus: string;
   responseMessage: string;
+};
+
+export type errorMessage = {
+  status: string;
+  message: string;
 };

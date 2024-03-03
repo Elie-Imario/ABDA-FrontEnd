@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -10,7 +10,12 @@ import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import img from "../../assets/images/Private data-amico.png";
 import "./login.scss";
-import { AuthResponse, User, UserLogin } from "../../service/types/dataTypes";
+import {
+  AuthResponse,
+  User,
+  UserLogin,
+  errorMessage,
+} from "../../service/types/dataTypes";
 import { loginIntoAccount } from "../../request/auth.request";
 import { AppContext } from "../../service/context";
 import { useNavigate } from "react-router-dom";
@@ -23,6 +28,11 @@ const Login = () => {
     userName: "",
     password: "",
   });
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+
+  useEffect(() => {
+    setErrorMsg(null);
+  }, [log]);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -33,19 +43,32 @@ const Login = () => {
   };
 
   const handleConnect = () => {
-    loginIntoAccount(log).then((res: AuthResponse) => {
-      if (res.responseStatus === "OK") {
-        const user = {
-          username: res.userName,
-          role: res.authorities[0].authority,
-        } as User;
+    loginIntoAccount(log)
+      .then((res: AuthResponse) => {
+        if (res.responseStatus === "OK") {
+          const user = {
+            username: res.userName,
+            role: res.authorities[0].authority,
+          } as User;
 
-        sessionStorage.setItem("connectedUser", JSON.stringify(user));
-        sessionStorage.setItem("userjwttoken", JSON.stringify(res.jwtToken));
-        setAppContext(user);
-        navigate("/inscriptions");
-      }
-    });
+          sessionStorage.setItem("connectedUser", JSON.stringify(user));
+          sessionStorage.setItem("userjwttoken", JSON.stringify(res.jwtToken));
+          setAppContext(user);
+          navigate("/inscriptions");
+        } else {
+          throw {
+            status: res.responseStatus,
+            message: res.responseMessage,
+          };
+        }
+      })
+      .catch((error: errorMessage) => {
+        if (error.status) {
+          setErrorMsg(error.message);
+        } else {
+          setErrorMsg("Impossible d'acceder aux ressources");
+        }
+      });
   };
 
   return (
@@ -64,6 +87,7 @@ const Login = () => {
           <div className="login_form">
             <FormControl fullWidth className="wrap-input100">
               <TextField
+                error={errorMsg ? true : false}
                 fullWidth
                 label="Login"
                 id="input"
@@ -89,6 +113,7 @@ const Login = () => {
                 Mot de Passe
               </InputLabel>
               <OutlinedInput
+                error={errorMsg ? true : false}
                 id="outlined-adornment-password"
                 className="input100"
                 type={showPassword ? "text" : "password"}
@@ -119,6 +144,15 @@ const Login = () => {
                 label="Mot de Passe"
               />
             </FormControl>
+
+            {errorMsg && (
+              <div className="error-wrapper">
+                <span className="error-msg">
+                  <FontAwesomeIcon icon="exclamation-circle" size="lg" />
+                  {errorMsg}
+                </span>
+              </div>
+            )}
 
             <div
               className="container-login100-form-btn"
