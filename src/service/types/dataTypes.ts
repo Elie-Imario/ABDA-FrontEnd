@@ -61,6 +61,11 @@ export type RegistrationResponse = {
   responseMessage: string;
 };
 
+export type Response = {
+  httpStatus: string;
+  responseMessage: string;
+};
+
 export type errorMessage = {
   status: string;
   message: string;

@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./buttonBox.scss";
 import { AppContext } from "../../../service/context";
 import { useNavigate } from "react-router-dom";
+import { closeSession } from "../../../request/logout.request";
+import { Response } from "../../../service/types/dataTypes";
 
 type Props = {
   icoName: string;
@@ -20,12 +22,16 @@ export const ButtonBox: FC<Props> = ({
   const { setAppContext } = useContext(AppContext);
   const onHandleQuitClick = () => {
     _setProcessLogout(true);
-    setTimeout(() => {
-      sessionStorage.clear();
-      setAppContext(undefined);
-      _setProcessLogout(false);
-      navigate("/");
-    }, 500);
+    closeSession().then((res: Response) => {
+      if (res.httpStatus === "OK") {
+        setTimeout(() => {
+          sessionStorage.clear();
+          setAppContext(undefined);
+          _setProcessLogout(false);
+        }, 500);
+        navigate("/");
+      }
+    });
   };
   return (
     <div className="sidebar-navigation-item">
