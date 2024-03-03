@@ -50,19 +50,21 @@ const Audit = () => {
 
   useEffect(() => {
     setLoading(true);
-    getAudits(
-      JSON.parse(sessionStorage.getItem("userjwttoken") as string)
-    ).then((res: AuditActivityResponse) => {
-      if (res.responseStatus === "OK") {
-        setAudit(res.audits);
-        getAuditDetailsActivity(
-          JSON.parse(sessionStorage.getItem("userjwttoken") as string)
-        ).then((res) => {
-          setRevisionsDetail(res);
-        });
-      }
-      setLoading(false);
-    });
+    if (UserLogContext) {
+      getAudits(
+        JSON.parse(sessionStorage.getItem("userjwttoken") as string)
+      ).then((res: AuditActivityResponse) => {
+        if (res.responseStatus === "OK") {
+          setAudit(res.audits);
+          getAuditDetailsActivity(
+            JSON.parse(sessionStorage.getItem("userjwttoken") as string)
+          ).then((res) => {
+            setRevisionsDetail(res);
+          });
+        }
+        setLoading(false);
+      });
+    }
   }, []);
 
   const handleChangePage = (

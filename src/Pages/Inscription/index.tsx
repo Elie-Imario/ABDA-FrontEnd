@@ -50,12 +50,14 @@ const Inscription = () => {
 
   useEffect(() => {
     setLoading(true);
-    getAllInscriptions(
-      JSON.parse(sessionStorage.getItem("userjwttoken") as string)
-    ).then((res) => {
-      setRegistrations(res);
-      setLoading(false);
-    });
+    if (UserLogContext) {
+      getAllInscriptions(
+        JSON.parse(sessionStorage.getItem("userjwttoken") as string)
+      ).then((res) => {
+        setRegistrations(res);
+        setLoading(false);
+      });
+    }
   }, []);
 
   const RegistrationsSort = Registrations.sort((a, b) =>
