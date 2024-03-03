@@ -20,7 +20,6 @@ body {
     @include flex($align: center, $justify: center, $flexwrap: nowrap);
     .left-side,
     .right-side {
-      position: relative;
       overflow: hidden;
       .bloc-limiter {
         width: 90%;
@@ -34,6 +33,7 @@ body {
       }
     }
     .right-side {
+      position: relative;
       background: $gray-200;
     }
   }
