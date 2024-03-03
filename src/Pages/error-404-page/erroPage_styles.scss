@@ -1,0 +1,49 @@
+@import "../../assets/dist/sass/import";
+.error-page-wrapper {
+  @include flex(
+    $direction: column,
+    $align: center,
+    $justify: center,
+    $gap: 36px
+  );
+  min-height: calc(100vh - (1.625rem * 2));
+  text-align: center;
+  .error-title-lead {
+    @include plusJakartaSansType($weight: 600);
+    padding: 0.75rem;
+    color: $gray-100;
+    font-size: 2.15rem;
+  }
+  .subtitle {
+    font-size: 14px;
+    @include plusJakartaSansType($weight: 200);
+    color: $gray-500;
+  }
+
+  .redirect-btn {
+    color: $white;
+    background: $primary;
+    width: 196px;
+    padding: 0.85rem;
+    border-radius: 5px;
+    @include plusJakartaSansType($weight: 500);
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    @include flex($align: center, $justify: center, $gap: 8px);
+    svg {
+      font-size: 16px;
+    }
+  }
+
+  .img-container {
+    max-width: 500px;
+    height: 324px;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}
