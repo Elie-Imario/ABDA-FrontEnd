@@ -29,9 +29,11 @@ const Login = () => {
     password: "",
   });
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [globalErrorMsg, setGlobalErrorMsg] = useState<string | null>(null);
 
   useEffect(() => {
     setErrorMsg(null);
+    setGlobalErrorMsg(null);
   }, [log]);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -68,13 +70,16 @@ const Login = () => {
         })
         .catch((error: errorMessage) => {
           if (error.status) {
+            if (error.status === "INTERNAL_SERVER_ERROR") {
+              setGlobalErrorMsg(error.message);
+            }
             setErrorMsg(error.message);
           } else {
-            setErrorMsg("Impossible d'acceder aux ressources");
+            setGlobalErrorMsg("Impossible d'acceder aux ressources");
           }
         });
     } else {
-      setErrorMsg("Veuillez remplir tous les champs!");
+      setGlobalErrorMsg("Veuillez remplir tous les champs!");
     }
   };
 
@@ -152,11 +157,11 @@ const Login = () => {
               />
             </FormControl>
 
-            {errorMsg && (
+            {(errorMsg || globalErrorMsg) && (
               <div className="error-wrapper">
                 <span className="error-msg">
                   <FontAwesomeIcon icon="exclamation-circle" size="lg" />
-                  {errorMsg}
+                  {errorMsg || globalErrorMsg}
                 </span>
               </div>
             )}
