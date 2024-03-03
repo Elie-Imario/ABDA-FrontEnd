@@ -6,14 +6,24 @@ import "../../plugins/fa-plugin-kit.js";
 import { pageRoutes } from "../../service/data/index.js";
 import { MenuItem } from "./ButtonBoxItemComponent/MenuItem.js";
 import { User } from "../../service/types/dataTypes.js";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const LeftSide = () => {
   const [connectedUser] = useState<User>(
     useContext(AppContext).UserLogContext as User
   );
 
+  const [prosessLogout, setProcessLogout] = useState(false);
+
   return (
     <div className="left-side">
+      {prosessLogout && (
+        <div className="overlay-progress">
+          <div className="wrapper">
+            <FontAwesomeIcon icon="door-open" size="lg" />
+          </div>
+        </div>
+      )}
       <div className="bloc-limiter">
         <div className="sidebar-toggle">
           <button type="button" className="navbar-toggler">
@@ -51,7 +61,11 @@ const LeftSide = () => {
                     />
                   );
                 })}
-              <ButtonBox icoName="door-open" buttonLabel="Quitter la session" />
+              <ButtonBox
+                icoName="door-open"
+                buttonLabel="Quitter la session"
+                _setProcessLogout={setProcessLogout}
+              />
             </div>
           </div>
         </div>
