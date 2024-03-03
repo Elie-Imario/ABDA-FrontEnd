@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import Audit from "./Pages/Audit";
 import Inscription from "./Pages/Inscription";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -8,39 +9,52 @@ import "./plugins/font-plugin-kit.js";
 import "./plugins/fa-plugin-kit.js";
 import "./App.scss";
 import "./Pages/Pages.scss";
+import { AppContext } from "./service/context/index.js";
+import { ErrorPage } from "./Pages/error-404-page/index.js";
 
 const Main = () => {
+  const { UserLogContext } = useContext(AppContext);
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route
-            path="/inscriptions"
-            element={
-              <>
-                <SideBarWrapper>
-                  <LeftSide />
-                </SideBarWrapper>
-                <MainSide className="right-side">
-                  <Inscription />
-                </MainSide>
-              </>
-            }
-          />
-          <Route
-            path="/audits"
-            element={
-              <>
-                <SideBarWrapper>
-                  <LeftSide />
-                </SideBarWrapper>
-                <MainSide className="right-side">
-                  <Audit />
-                </MainSide>
-              </>
-            }
-          />
+          <>
+            <Route
+              path="/inscriptions"
+              element={
+                UserLogContext ? (
+                  <>
+                    <SideBarWrapper>
+                      <LeftSide />
+                    </SideBarWrapper>
+                    <MainSide className="right-side">
+                      <Inscription />
+                    </MainSide>
+                  </>
+                ) : (
+                  <ErrorPage />
+                )
+              }
+            />
+            <Route
+              path="/audits"
+              element={
+                UserLogContext ? (
+                  <>
+                    <SideBarWrapper>
+                      <LeftSide />
+                    </SideBarWrapper>
+                    <MainSide className="right-side">
+                      <Audit />
+                    </MainSide>
+                  </>
+                ) : (
+                  <ErrorPage />
+                )
+              }
+            />
+          </>
         </Routes>
       </BrowserRouter>
     </div>
