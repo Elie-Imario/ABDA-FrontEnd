@@ -43,32 +43,39 @@ const Login = () => {
   };
 
   const handleConnect = () => {
-    loginIntoAccount(log)
-      .then((res: AuthResponse) => {
-        if (res.responseStatus === "OK") {
-          const user = {
-            username: res.userName,
-            role: res.authorities[0].authority,
-          } as User;
+    if (log.userName && log.password) {
+      loginIntoAccount(log)
+        .then((res: AuthResponse) => {
+          if (res.responseStatus === "OK") {
+            const user = {
+              username: res.userName,
+              role: res.authorities[0].authority,
+            } as User;
 
-          sessionStorage.setItem("connectedUser", JSON.stringify(user));
-          sessionStorage.setItem("userjwttoken", JSON.stringify(res.jwtToken));
-          setAppContext(user);
-          navigate("/inscriptions");
-        } else {
-          throw {
-            status: res.responseStatus,
-            message: res.responseMessage,
-          };
-        }
-      })
-      .catch((error: errorMessage) => {
-        if (error.status) {
-          setErrorMsg(error.message);
-        } else {
-          setErrorMsg("Impossible d'acceder aux ressources");
-        }
-      });
+            sessionStorage.setItem("connectedUser", JSON.stringify(user));
+            sessionStorage.setItem(
+              "userjwttoken",
+              JSON.stringify(res.jwtToken)
+            );
+            setAppContext(user);
+            navigate("/inscriptions");
+          } else {
+            throw {
+              status: res.responseStatus,
+              message: res.responseMessage,
+            };
+          }
+        })
+        .catch((error: errorMessage) => {
+          if (error.status) {
+            setErrorMsg(error.message);
+          } else {
+            setErrorMsg("Impossible d'acceder aux ressources");
+          }
+        });
+    } else {
+      setErrorMsg("Veuillez remplir tous les champs!");
+    }
   };
 
   return (
