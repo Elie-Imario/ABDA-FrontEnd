@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { AppContext } from "../../service/context/index.js";
 import { ButtonBox } from "./ButtonBoxItemComponent/ButtonBox.js";
 import "./leftSide.scss";
@@ -13,10 +13,18 @@ const LeftSide = () => {
     useContext(AppContext).UserLogContext as User
   );
 
+  const leftSideRef = useRef<HTMLDivElement>(null);
+
   const [prosessLogout, setProcessLogout] = useState(false);
+  const [collapse, setCollapseState] = useState(false);
+
+  console.log(leftSideRef.current?.style);
 
   return (
-    <div className="left-side">
+    <div
+      className={`left-side ${collapse ? "collapse" : ""}`}
+      ref={leftSideRef}
+    >
       {prosessLogout && (
         <div className="overlay-progress">
           <div className="wrapper">
@@ -26,7 +34,11 @@ const LeftSide = () => {
       )}
       <div className="bloc-limiter">
         <div className="sidebar-toggle">
-          <button type="button" className="navbar-toggler">
+          <button
+            type="button"
+            className="navbar-toggler"
+            onClick={() => setCollapseState(!collapse)}
+          >
             <span className="navbar-toggler-bar bar1"></span>
             <span className="navbar-toggler-bar bar2"></span>
             <span className="navbar-toggler-bar bar3"></span>
@@ -34,40 +46,72 @@ const LeftSide = () => {
         </div>
 
         <div className="sidebar-navigation">
-          <div className="sidebar-navgation-brand">
-            <span className="text-uppercase">
-              Bonjour, {connectedUser?.username}
-            </span>
-            <span className="sub-title text-background">
-              Bienvenue sur votre espace de travail!
-            </span>
-          </div>
-          <div className="sidebar-navigation-bloc">
-            <span className="menu-category">Vos Options</span>
-            <div className="sidebar-navigation-items">
-              {pageRoutes
-                .filter(
-                  (pageRoute) =>
-                    pageRoute.authoritiesLevel.indexOf(connectedUser?.role) !==
-                      -1 && pageRoute
-                )
-                .map((item, key) => {
-                  return (
-                    <MenuItem
-                      key={key}
-                      icoName={item.icon}
-                      pageName={item.label}
-                      path={item.path}
-                    />
-                  );
-                })}
-              <ButtonBox
-                icoName="door-open"
-                buttonLabel="Quitter la session"
-                _setProcessLogout={setProcessLogout}
-              />
+          {collapse ? (
+            <div className="collapsed-sideBar-section">
+              <div className="sidebar-navigation-bloc">
+                <div className="sidebar-navigation-items">
+                  {pageRoutes
+                    .filter(
+                      (pageRoute) =>
+                        pageRoute.authoritiesLevel.indexOf(
+                          connectedUser?.role
+                        ) !== -1 && pageRoute
+                    )
+                    .map((item, key) => {
+                      return (
+                        <MenuItem
+                          key={key}
+                          icoName={item.icon}
+                          path={item.path}
+                        />
+                      );
+                    })}
+                  <ButtonBox
+                    icoName="door-open"
+                    _setProcessLogout={setProcessLogout}
+                  />
+                </div>
+              </div>
             </div>
-          </div>
+          ) : (
+            <>
+              <div className="sidebar-navgation-brand">
+                <span className="text-uppercase">
+                  Bonjour, {connectedUser?.username}
+                </span>
+                <span className="sub-title text-background">
+                  Bienvenue sur votre espace de travail!
+                </span>
+              </div>
+              <div className="sidebar-navigation-bloc">
+                <span className="menu-category">Vos Options</span>
+                <div className="sidebar-navigation-items">
+                  {pageRoutes
+                    .filter(
+                      (pageRoute) =>
+                        pageRoute.authoritiesLevel.indexOf(
+                          connectedUser?.role
+                        ) !== -1 && pageRoute
+                    )
+                    .map((item, key) => {
+                      return (
+                        <MenuItem
+                          key={key}
+                          icoName={item.icon}
+                          pageName={item.label}
+                          path={item.path}
+                        />
+                      );
+                    })}
+                  <ButtonBox
+                    icoName="door-open"
+                    buttonLabel="Quitter la session"
+                    _setProcessLogout={setProcessLogout}
+                  />
+                </div>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>

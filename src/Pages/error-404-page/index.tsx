@@ -11,7 +11,7 @@ export const ErrorPage = () => {
           <h2 className="error-title-lead">Page Introuvable</h2>
           <p className="subtitle">
             Oops! 😖 La page que vous avez demandé est indisponible, veuillez
-            vous connecter!.
+            vous connecter!
           </p>
           <NavLink to="/" className="redirect-btn">
             Page de connexion <FontAwesomeIcon icon="sign-in" size="lg" />

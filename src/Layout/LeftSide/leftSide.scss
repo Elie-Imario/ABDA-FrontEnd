@@ -52,18 +52,17 @@
         outline: none;
         cursor: pointer;
         border: none;
-        border-radius: 0.5rem;
-        padding: 0.5rem;
+        border-radius: 0.7rem;
+        padding: 0.55rem;
         background: rgba($color: $gray-600, $alpha: 0.3);
 
         &:hover {
           & .navbar-toggler-bar.bar1,
           & .navbar-toggler-bar.bar3 {
-            width: 18px;
+            width: 24px;
           }
         }
         .navbar-toggler-bar {
-          margin: 0.2rem;
           height: 2px;
           border-radius: 1px;
           background: $white;
@@ -72,18 +71,18 @@
             $justify: flex-end,
             $flexwrap: nowrap
           );
-          margin: 0.25rem;
+          margin: 0.35rem;
 
           &.bar1,
           &.bar3 {
-            width: 9px;
+            width: 15px;
             transition: width 0.25s ease;
           }
           &.bar1 {
             float: right;
           }
           &.bar2 {
-            width: 18px;
+            width: 24px;
           }
         }
       }
@@ -92,6 +91,46 @@
   .sidebar-navigation {
     width: 81%;
     margin-top: 3rem;
+    .collapsed-sideBar-section {
+      height: 100%;
+      @include flex(
+        $direction: column,
+        $align: center,
+        $justify: space-between,
+        $flexwrap: nowrap,
+        $gap: 15px
+      );
+
+      .sidebar-navigation-bloc {
+        width: 100%;
+      }
+
+      .box {
+        width: 35px;
+        height: 35px;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        svg {
+          font-size: 1rem;
+        }
+      }
+      .sidebar-navigation-bloc
+        .sidebar-navigation-items
+        .sidebar-navigation-item:nth-of-type(1)
+        .box,
+      .sidebar-navigation-bloc
+        .sidebar-navigation-items
+        .sidebar-navigation-item:nth-of-type(2)
+        .box {
+        &.active::before {
+          content: "";
+          border-width: 2px;
+          position: absolute;
+          padding: 0.25rem;
+          border-radius: 0.7rem;
+        }
+      }
+    }
   }
 
   & .sidebar-navigation {

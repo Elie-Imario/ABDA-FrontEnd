@@ -8,7 +8,7 @@ import { Response } from "../../../service/types/dataTypes";
 
 type Props = {
   icoName: string;
-  buttonLabel: string;
+  buttonLabel?: string;
   // eslint-disable-next-line @typescript-eslint/ban-types
   _setProcessLogout: Function;
 };

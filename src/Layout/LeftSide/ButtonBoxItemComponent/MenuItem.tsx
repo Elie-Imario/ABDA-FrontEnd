@@ -5,7 +5,7 @@ import "./buttonBox.scss";
 
 type Props = {
   icoName: string;
-  pageName: string;
+  pageName?: string;
   path: string;
 };
 

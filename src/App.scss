@@ -32,6 +32,16 @@ body {
         }
       }
     }
+    .left-side {
+      width: 40%;
+      height: 100%;
+      z-index: 9999;
+      transition: width 0.25s ease;
+      &.collapse {
+        width: 81px;
+        @include flex($direction: column, $align: center, $justify: center);
+      }
+    }
     .right-side {
       position: relative;
       background: $gray-200;
